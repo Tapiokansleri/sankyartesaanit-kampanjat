@@ -1,0 +1,27 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/cta-section",
+	"title": "Sänkyartesaanit - Toimintakehotus",
+	"category": "sankyartesaanit",
+	"icon": "phone",
+	"description": "Tumma lopun toimintakehotus painikkeilla.",
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "TOIMI ENNEN KUIN ERÄ LOPPUU" },
+		"title": { "type": "string", "default": "Varaa oma premium-sänkysi jo tänään" },
+		"description": { "type": "string", "default": "Soita ja sovitaan parhaat sänkykaupat, tai varaa aika myymälään. Rajoitettu erä, maksa vasta toimituksen jälkeen, 180 vrk tyytyväisyystakuu." },
+		"primaryButtonText": { "type": "string", "default": "Varaa aika" },
+		"primaryButtonUrl": { "type": "string", "default": "/ajanvaraus/" },
+		"secondaryButtonText": { "type": "string", "default": "Soita 02 546 4065" },
+		"secondaryButtonUrl": { "type": "string", "default": "tel:025464065" }
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": true
+	},
+	"style": "kansleri-sa-frontend",
+	"editorScript": "kansleri-sa-editor"
+}

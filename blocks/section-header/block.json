@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/section-header",
+	"title": "Sänkyartesaanit - Osion otsikko",
+	"category": "sankyartesaanit",
+	"icon": "heading",
+	"description": "Toistettava osion otsikko: yläotsikko, otsikko ja kuvaus.",
+	"keywords": ["otsikko", "header", "section"],
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "" },
+		"title": { "type": "string", "default": "" },
+		"description": { "type": "string", "default": "" },
+		"alignText": { "type": "string", "default": "left" },
+		"theme": { "type": "string", "default": "light" }
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": true
+	},
+	"style": "kansleri-sa-frontend",
+	"editorScript": "kansleri-sa-editor"
+}

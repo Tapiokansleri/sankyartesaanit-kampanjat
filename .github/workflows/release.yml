@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build plugin zip
+        run: |
+          PLUGIN_SLUG="kansleri-sankyartesaanit"
+          mkdir -p "dist/${PLUGIN_SLUG}"
+          shopt -s dotglob nullglob
+          for item in *; do
+            case "$item" in
+              dist|.git|.github) continue ;;
+            esac
+            cp -r "$item" "dist/${PLUGIN_SLUG}/"
+          done
+          cd dist && zip -r "../${PLUGIN_SLUG}.zip" "${PLUGIN_SLUG}"
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v2
+        with:
+          files: kansleri-sankyartesaanit.zip
+          generate_release_notes: true

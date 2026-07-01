@@ -1,0 +1,62 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/product-cards",
+	"title": "Sänkyartesaanit - Tuotekortit",
+	"category": "sankyartesaanit",
+	"icon": "cart",
+	"description": "Rivi tuotekortteja erikoistarjouksille.",
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"products": {
+			"type": "array",
+			"default": [
+				{
+					"imageId": 0,
+					"imageUrl": "",
+					"imageAlt": "Premium-jenkkisänky",
+					"eyebrow": "PREMIUM-JENKKISÄNKY",
+					"title": "Luksushotellien jenkkisänky",
+					"price": "1 649 €",
+					"comparePrice": "norm. 2 599 €",
+					"priceNote": "",
+					"features": [
+						"Huippuluokan Starsprings-jousisto",
+						"Kestävä ERX-patjavaahto ja massiivipuurunko",
+						"Koot 160×200 ja 180×200 cm",
+						"Toimitus ja asennus veloituksetta"
+					],
+					"buttonText": "Varaa sänky itsellesi",
+					"buttonUrl": "/ajanvaraus/"
+				},
+				{
+					"imageId": 0,
+					"imageUrl": "",
+					"imageAlt": "Dove-moottorisänky",
+					"eyebrow": "DOVE-MOOTTORISÄNKY",
+					"title": "Säädettävä huippuergonomia",
+					"price": "2 749 €",
+					"comparePrice": "",
+					"priceNote": "+ pääty 599 € kaupan päälle",
+					"features": [
+						"Pääty kaupan päälle, arvo 599 €",
+						"Tanskalainen teräksinen laatukoneisto",
+						"Säädä pääty ja jalkopää haluamaasi asentoon",
+						"Toimitus ja asennus veloituksetta"
+					],
+					"buttonText": "Varaa moottorisänky",
+					"buttonUrl": "/ajanvaraus/"
+				}
+			]
+		},
+		"theme": { "type": "string", "default": "sand" }
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": true
+	},
+	"style": "kansleri-sa-frontend",
+	"editorScript": "kansleri-sa-editor"
+}

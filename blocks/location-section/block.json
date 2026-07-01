@@ -1,0 +1,44 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/location-section",
+	"title": "Sänkyartesaanit - Myymäläosio",
+	"category": "sankyartesaanit",
+	"icon": "store",
+	"description": "Private shopping -osio myymäläkorteilla.",
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "PRIVATE SHOPPING" },
+		"title": { "type": "string", "default": "Tule kokeilemaan sänky rauhassa" },
+		"description": { "type": "string", "default": "Sängyn tunne kannattaa kokea itse. Varaa oma aikasi Helsingin tai Lahden myymälään, niin saat asiantuntijan avuksesi." },
+		"giftText": { "type": "string", "default": "🎁 Varaa aika myymälään ja saat lahjaksi 149 € arvoisen DUZZI-untuvatyynyn." },
+		"locations": {
+			"type": "array",
+			"default": [
+				{
+					"eyebrow": "HELSINKI",
+					"title": "Unistudio",
+					"address": "Veturitie 24, 00520 Helsinki",
+					"buttonText": "Varaa aika Helsinkiin",
+					"buttonUrl": "/ajanvaraus/"
+				},
+				{
+					"eyebrow": "LAHTI",
+					"title": "Tehtaanmyymälä",
+					"address": "Rautatienkatu 16, 15110 Lahti",
+					"buttonText": "Varaa aika Lahteen",
+					"buttonUrl": "/ajanvaraus/"
+				}
+			]
+		},
+		"theme": { "type": "string", "default": "sand" }
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": true
+	},
+	"style": "kansleri-sa-frontend",
+	"editorScript": "kansleri-sa-editor"
+}

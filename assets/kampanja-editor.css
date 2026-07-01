@@ -1,0 +1,50 @@
+/* Kampanja editor — full-width canvas + selectable blocks */
+
+.post-type-kampanja .block-editor-block-list__layout.is-root-container {
+	max-width: none !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+.post-type-kampanja .edit-post-visual-editor__post-title-wrapper {
+	max-width: none;
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
+
+.post-type-kampanja .block-editor-block-list__block {
+	max-width: none !important;
+}
+
+.post-type-kampanja .block-editor-block-list__block[data-align="full"],
+.post-type-kampanja .block-editor-block-list__block.alignfull {
+	max-width: none !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
+.post-type-kampanja .sa-editor-block {
+	max-width: none;
+	margin: 0;
+	border-left: none;
+	border-right: none;
+	border-radius: 0;
+	padding: 0;
+}
+
+.post-type-kampanja .sa-editor-block.is-selected,
+.post-type-kampanja .sa-editor-block.has-child-selected {
+	outline: 1px solid var(--wp-admin-theme-color, #3858e9);
+	outline-offset: -1px;
+}
+
+.post-type-kampanja .sa-editor-block__preview {
+	pointer-events: none;
+}
+
+.post-type-kampanja .sa-editor-block__preview a,
+.post-type-kampanja .sa-editor-block__preview button {
+	pointer-events: none;
+}

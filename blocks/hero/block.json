@@ -1,0 +1,46 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/hero",
+	"title": "Sänkyartesaanit - Hero",
+	"category": "sankyartesaanit",
+	"icon": "cover-image",
+	"description": "Päähero kuvalla, hinnoittelulla ja toimintopainikkeilla.",
+	"keywords": ["hero", "landing"],
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "SUOMALAISTA SÄNKYKÄSITYÖTÄ VUODESTA 1987" },
+		"title": { "type": "string", "default": "Premium-jenkkisänky perinteisen sängyn hinnalla" },
+		"description": { "type": "string", "default": "Käsityönä valmistettu luksussänky Starsprings-jousistolla. Toimitus ja asennus veloituksetta koko Suomeen." },
+		"price": { "type": "string", "default": "1 649 €" },
+		"comparePrice": { "type": "string", "default": "norm. 2 599 €" },
+		"savingsText": { "type": "string", "default": "Säästä 950 €" },
+		"sizes": { "type": "string", "default": "Koot 160×200 ja 180×200 cm" },
+		"primaryButtonText": { "type": "string", "default": "Varaa maksuton myymäläaika" },
+		"primaryButtonUrl": { "type": "string", "default": "/ajanvaraus/" },
+		"secondaryButtonText": { "type": "string", "default": "Soita 02 546 4065" },
+		"secondaryButtonUrl": { "type": "string", "default": "tel:025464065" },
+		"trustItems": {
+			"type": "array",
+			"default": [
+				"180 vrk tyytyväisyystakuu",
+				"25 v takuu",
+				"Maksa vasta toimituksen jälkeen",
+				"Toimitus + asennus 0 €"
+			]
+		},
+		"trustLine": { "type": "string", "default": "" },
+		"imageId": { "type": "number", "default": 0 },
+		"imageUrl": { "type": "string", "default": "" },
+		"imageAlt": { "type": "string", "default": "" },
+		"imagePosition": { "type": "string", "default": "right" }
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": false
+	},
+	"style": ["kansleri-sa-frontend", "kansleri-sa-fontawesome"],
+	"editorScript": "kansleri-sa-editor"
+}

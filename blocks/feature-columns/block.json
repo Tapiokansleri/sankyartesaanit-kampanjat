@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/feature-columns",
+	"title": "Sänkyartesaanit - Ominaisuussarakkeet",
+	"category": "sankyartesaanit",
+	"icon": "columns",
+	"description": "Rivi kolmesta (tai useammasta) otsikko + teksti -sarakkeesta.",
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"showIcons": {
+			"type": "boolean",
+			"default": true
+		},
+		"columns": {
+			"type": "array",
+			"default": [
+				{
+					"title": "Aito premium-tuote",
+					"description": "Käsityönä laadukkaimmista komponenteista ja hienoimmista materiaaleista.",
+					"icon": "gem",
+					"iconStyle": "solid"
+				},
+				{
+					"title": "Perheyritys vuodesta 1987",
+					"description": "Luotettava suomalainen sänkykauppa jo yli 35 vuoden ajan.",
+					"icon": "house-chimney-user",
+					"iconStyle": "solid"
+				},
+				{
+					"title": "Tilaa nyt, maksa myöhemmin",
+					"description": "Maksat vasta kun tuote on toimitettu. Tilaaminen on riskitöntä.",
+					"icon": "wallet",
+					"iconStyle": "solid"
+				}
+			]
+		},
+		"theme": { "type": "string", "default": "cream" }
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": true
+	},
+	"style": ["kansleri-sa-frontend", "kansleri-sa-fontawesome"],
+	"editorScript": "kansleri-sa-editor"
+}

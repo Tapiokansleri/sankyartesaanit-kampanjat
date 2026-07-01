@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/faq",
+	"title": "Sänkyartesaanit - UKK",
+	"category": "sankyartesaanit",
+	"icon": "editor-help",
+	"description": "Usein kysytyt kysymykset accordion-tyylillä.",
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "USEIN KYSYTTYÄ" },
+		"title": { "type": "string", "default": "Vastauksia ennen tilausta" },
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"question": "Voinko maksaa vasta toimituksen jälkeen?",
+					"answer": "<p>Kyllä. Maksat vasta sitten, kun olet saanut tuotteen ja ehtinyt varmistaa, että sänky vastaa odotuksiasi.</p><p>Tilaaminen on siis riskitöntä — emme veloita ennen toimitusta. Voit rauhassa tutustua tuotteeseen kotona ennen maksua.</p>"
+				},
+				{
+					"question": "Kuuluuko toimitus ja asennus hintaan?",
+					"answer": "<p>Kyllä. Toimitus ja asennus ovat veloituksetta koko Suomeen.</p><p>Tuomme sängyn perille, kokoamme sen valmiiksi ja hävitämme pakkausmateriaalit. Sinun ei tarvitse huolehtia logistiikasta tai kokoamisesta.</p>"
+				},
+				{
+					"question": "Mitä jos sänky ei tunnukaan omalta?",
+					"answer": "<p>Sängyillä on <strong>180 vuorokauden tyytyväisyystakuu</strong>. Saat siis reilusti aikaa nukkua uudessa sängyssä ja varmistaa, että valinta on oikea.</p><p>Jos sänky ei tunnu sopivalta, ota yhteyttä — löydämme yhdessä ratkaisun.</p>"
+				},
+				{
+					"question": "Kuinka pitkä takuu sängyssä on?",
+					"answer": "<p>Jousistolla on <strong>25 vuoden takuu</strong>. Kyseessä on aito premium-sänky, joka on tehty kestämään vuosikymmeniä.</p><p>Laadukas Starsprings-jousisto ja huolellinen käsityö takaavat, että sänky tukee kehoa yhtä hyvin vuosienkin jälkeen.</p>"
+				},
+				{
+					"question": "Mitä kokoja tarjouserästä on saatavilla?",
+					"answer": "<p>Premium-jenkkisänkyä on saatavilla kokoina <strong>160×200 cm</strong> ja <strong>180×200 cm</strong>.</p><p>Molemmat koot kuuluvat samaan tehtaan rajoitettuun erään ja erikoishintaan. Kysy myös muista malleista myymälästä.</p>"
+				},
+				{
+					"question": "Voinko kokeilla sänkyä ennen ostoa?",
+					"answer": "<p>Kyllä. Varaa aika <strong>Helsingin</strong> tai <strong>Lahden</strong> myymälään, niin pääset kokeilemaan tuntumaa rauhassa asiantuntijan kanssa.</p><p>Ajanvarauksella saat lahjaksi <strong>149 € arvoisen DUZZI-untuvatyynyn</strong>. Näin voit tehdä päätöksen varmasti omakohtaisen kokemuksen pohjalta.</p>"
+				}
+			]
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": true
+	},
+	"style": "kansleri-sa-frontend",
+	"editorScript": "kansleri-sa-editor"
+}

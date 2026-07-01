@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/promo-banner",
+	"title": "Sänkyartesaanit - Promo Banner",
+	"category": "sankyartesaanit",
+	"icon": "megaphone",
+	"description": "Kapea tumma ilmoitusnauha sivun ylä- tai alaosassa.",
+	"keywords": ["banner", "promo", "ilmoitus"],
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"text": {
+			"type": "string",
+			"default": "Rajoitettu tehtaan erä, vain n. 30 kpl. Tarjous voimassa niin kauan kuin erää riittää."
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": true
+	},
+	"style": "kansleri-sa-frontend",
+	"editorScript": "kansleri-sa-editor"
+}

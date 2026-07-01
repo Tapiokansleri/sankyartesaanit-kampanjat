@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/stat-cards",
+	"title": "Sänkyartesaanit - Tilastokortit",
+	"category": "sankyartesaanit",
+	"icon": "chart-bar",
+	"description": "Rivi lupaus-/tilastokortteja (esim. takuu, toimitus).",
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"showIcons": {
+			"type": "boolean",
+			"default": true
+		},
+		"stats": {
+			"type": "array",
+			"default": [
+				{
+					"value": "180 vrk",
+					"label": "tyytyväisyystakuu",
+					"icon": "shield-check",
+					"iconStyle": "solid"
+				},
+				{
+					"value": "25 vuotta",
+					"label": "takuu jousistolle",
+					"icon": "award",
+					"iconStyle": "solid"
+				},
+				{
+					"value": "Maksa myöhemmin",
+					"label": "vasta toimituksen jälkeen",
+					"icon": "wallet",
+					"iconStyle": "solid"
+				},
+				{
+					"value": "0 €",
+					"label": "toimitus ja asennus",
+					"icon": "truck-fast",
+					"iconStyle": "solid"
+				}
+			]
+		},
+		"theme": { "type": "string", "default": "warm" }
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": true
+	},
+	"style": ["kansleri-sa-frontend", "kansleri-sa-fontawesome"],
+	"editorScript": "kansleri-sa-editor"
+}

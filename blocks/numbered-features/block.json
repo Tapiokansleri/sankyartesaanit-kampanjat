@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/numbered-features",
+	"title": "Sänkyartesaanit - Numeroidut ominaisuudet",
+	"category": "sankyartesaanit",
+	"icon": "editor-ol",
+	"description": "Tumma osio numeroiduilla laatuominaisuuksilla.",
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"eyebrow": { "type": "string", "default": "MISTÄ LAATU SYNTYY" },
+		"title": { "type": "string", "default": "Aito premium-sänky, ei tavallinen vuode" },
+		"description": { "type": "string", "default": "Jokainen sänky valmistetaan käsityönä laadukkaimmista komponenteista. Nämä ratkaisevat, miten sänky tukee kehoasi vuosien ajan." },
+		"items": {
+			"type": "array",
+			"default": [
+				{ "number": "01", "title": "Starsprings-jousisto", "description": "Huippuluokan jousisto antaa nukkujalle optimaalisen tuen yhdistettynä ylelliseen pintapehmeyteen." },
+				{ "number": "02", "title": "Ergonominen ERX-vaahto", "description": "Perinteistä vaahtomuovia kestävämpi, ylellinen materiaali laadukkaan jousiston päällä." },
+				{ "number": "03", "title": "Massiivipuurunko", "description": "Aito premium-sänky rakennetaan käsityönä kestävään massiivipuurunkoon." },
+				{ "number": "04", "title": "Laadukas verhoilu", "description": "Tyylikäs beigeharmaa, julkisten tilojen vaatimukset täyttävä laadukas kangas." }
+			]
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": true
+	},
+	"style": "kansleri-sa-frontend",
+	"editorScript": "kansleri-sa-editor"
+}

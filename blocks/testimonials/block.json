@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/testimonials",
+	"title": "Sänkyartesaanit - Asiakaskokemukset",
+	"category": "sankyartesaanit",
+	"icon": "format-quote",
+	"description": "Rivi asiakastarinoita tähtiarvioilla.",
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"quote": "Toimitusaika oli neljä viikkoa, ja nyt käyttöä on pari kuukautta. 193-senttisenä aiemmat sängyt jäivät lyhyeksi, tämä korjasi nukkumisergonomian.",
+					"productName": "Boho-jenkkisänky",
+					"authorLabel": "Sänkyartesaanien asiakas",
+					"linkUrl": "https://sankyartesaanit.fi/asiakastarina/design-jenkkisanky-boho/",
+					"linkText": "Lue koko tarina"
+				},
+				{
+					"quote": "Hankimme perheen yhteiseksi joululahjaksi Bo'heme-jenkkisängyn Lahden tehtaanmyymälästä. Koko 180×200 osui täydellisesti.",
+					"productName": "Bo'heme-jenkkisänky",
+					"authorLabel": "Sänkyartesaanien asiakas",
+					"linkUrl": "https://sankyartesaanit.fi/asiakastarina/jenkkisanky-paransi-kokemuksia/",
+					"linkText": "Lue koko tarina"
+				}
+			]
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": true
+	},
+	"style": "kansleri-sa-frontend",
+	"editorScript": "kansleri-sa-editor"
+}
