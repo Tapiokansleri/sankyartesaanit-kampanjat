@@ -120,7 +120,7 @@ function kansleri_sa_render_fa_icon( $icon_name, $icon_style = 'solid', $class =
 }
 
 function kansleri_sa_get_hero_trust_items( $attributes ) {
-	$items = $attributes['trustItems'] ?? array();
+	$items = $attributes['trustItems'] ?? $attributes['microtrust'] ?? array();
 
 	if ( is_array( $items ) && ! empty( $items ) ) {
 		return array_values(

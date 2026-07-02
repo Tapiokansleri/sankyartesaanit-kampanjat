@@ -3,8 +3,9 @@ defined( 'ABSPATH' ) || exit;
 
 $position = ( $attributes['imagePosition'] ?? 'right' ) === 'left' ? 'left' : 'right';
 $class    = 'sa-hero alignfull sa-hero--image-' . $position;
+$bonus_items = $attributes['bonusItems'] ?? array();
 ?>
-<section <?php echo kansleri_sa_wrapper_attrs( $attributes, $class , $block_instance ); ?>>
+<section <?php echo kansleri_sa_wrapper_attrs( $attributes, $class, $block_instance ); ?>>
 	<div class="sa-container sa-hero__grid">
 		<div class="sa-hero__content">
 			<?php if ( ! empty( $attributes['eyebrow'] ) ) : ?>
@@ -36,6 +37,22 @@ $class    = 'sa-hero alignfull sa-hero--image-' . $position;
 			<?php if ( ! empty( $attributes['sizes'] ) ) : ?>
 				<p class="sa-hero__sizes"><?php kansleri_sa_esc_text( $attributes['sizes'] ); ?></p>
 			<?php endif; ?>
+			<?php if ( ! empty( $attributes['bonusTitle'] ) || ! empty( $bonus_items ) ) : ?>
+				<div class="sa-hero__bonus">
+					<?php if ( ! empty( $attributes['bonusTitle'] ) ) : ?>
+						<p class="sa-hero__bonus-title"><strong><?php kansleri_sa_esc_text( $attributes['bonusTitle'] ); ?></strong></p>
+					<?php endif; ?>
+					<?php if ( ! empty( $bonus_items ) ) : ?>
+						<ul class="sa-hero__bonus-list">
+							<?php foreach ( $bonus_items as $bonus_item ) : ?>
+								<?php if ( $bonus_item ) : ?>
+									<li><?php kansleri_sa_esc_text( $bonus_item ); ?></li>
+								<?php endif; ?>
+							<?php endforeach; ?>
+						</ul>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
 			<div class="sa-hero__buttons">
 				<?php
 				kansleri_sa_render_button(
@@ -65,6 +82,9 @@ $class    = 'sa-hero alignfull sa-hero--image-' . $position;
 			<?php endif; ?>
 		</div>
 		<div class="sa-hero__media">
+			<?php if ( ! empty( $attributes['scarcityBadge'] ) ) : ?>
+				<span class="sa-hero__badge"><?php kansleri_sa_esc_text( $attributes['scarcityBadge'] ); ?></span>
+			<?php endif; ?>
 			<?php kansleri_sa_render_image( $attributes, 'sa-hero__image' ); ?>
 		</div>
 	</div>

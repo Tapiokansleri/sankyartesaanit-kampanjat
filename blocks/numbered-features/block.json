@@ -19,7 +19,8 @@
 				{ "number": "03", "title": "Massiivipuurunko", "description": "Aito premium-sänky rakennetaan käsityönä kestävään massiivipuurunkoon." },
 				{ "number": "04", "title": "Laadukas verhoilu", "description": "Tyylikäs beigeharmaa, julkisten tilojen vaatimukset täyttävä laadukas kangas." }
 			]
-		}
+		},
+		"features": { "type": "array" }
 	},
 	"supports": {
 		"html": false,

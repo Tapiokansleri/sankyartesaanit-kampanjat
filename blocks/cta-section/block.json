@@ -14,7 +14,11 @@
 		"primaryButtonText": { "type": "string", "default": "Varaa aika" },
 		"primaryButtonUrl": { "type": "string", "default": "/ajanvaraus/" },
 		"secondaryButtonText": { "type": "string", "default": "Soita 02 546 4065" },
-		"secondaryButtonUrl": { "type": "string", "default": "tel:025464065" }
+		"secondaryButtonUrl": { "type": "string", "default": "tel:025464065" },
+		"ctaPrimaryLabel": { "type": "string" },
+		"ctaPrimaryLink": { "type": "string" },
+		"ctaSecondaryLabel": { "type": "string" },
+		"ctaSecondaryLink": { "type": "string" }
 	},
 	"supports": {
 		"html": false,

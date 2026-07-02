@@ -89,6 +89,8 @@ class Kansleri_Sankyartesaanit_Blocks {
 			return '';
 		}
 
+		$attributes = Kansleri_SA_Attribute_Normalizer::normalize( $block, $attributes );
+
 		if ( in_array( $block, array( 'feature-columns', 'stat-cards', 'hero' ), true ) ) {
 			wp_enqueue_style( 'kansleri-sa-fontawesome' );
 		}

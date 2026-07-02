@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here.
 
+## [1.0.1] - 2026-07-01
+
+### Fixed
+
+- Accept alternate block attribute names in pasted markup (`lead`, `priceNow`, `features`, `cards`, `ctaPrimaryLabel`, etc.) without falling back to defaults
+- Hero supports `bonusTitle`, `bonusItems`, `scarcityBadge`, and Font Awesome icon strings in feature columns
+
+[1.0.1]: https://github.com/Tapiokansleri/sankyartesaanit-kampanjat/releases/tag/v1.0.1
+
 ## [1.0.0] - 2026-07-01
 
 ### Added
