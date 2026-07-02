@@ -172,5 +172,40 @@ class Kansleri_Sankyartesaanit_Blocks {
 			KANSLERI_SA_VERSION,
 			true
 		);
+
+		self::enqueue_prompt_export();
+	}
+
+	/**
+	 * Sidebar tool: copy AI prompt for kampanja content.
+	 */
+	public static function enqueue_prompt_export() {
+		global $post;
+
+		if ( ! $post || Kansleri_SA_CPT_Kampanjat::POST_TYPE !== $post->post_type ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'kansleri-sa-prompt-export',
+			KANSLERI_SA_PLUGIN_URL . 'assets/prompt-export.js',
+			array(
+				'wp-plugins',
+				'wp-edit-post',
+				'wp-element',
+				'wp-components',
+				'wp-data',
+				'wp-blocks',
+				'wp-i18n',
+			),
+			KANSLERI_SA_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			'kansleri-sa-prompt-export',
+			'kansleriSAPromptSchema',
+			Kansleri_SA_Prompt_Schema::get()
+		);
 	}
 }

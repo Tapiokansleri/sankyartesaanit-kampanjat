@@ -2,6 +2,14 @@
 
 All notable changes to this project are documented here.
 
+## [1.0.2] - 2026-07-01
+
+### Added
+
+- Editor sidebar **AI-prompt** panel with **Kopioi prompt leikepöydälle** — exports all blocks + field instructions for AI tools
+
+[1.0.2]: https://github.com/Tapiokansleri/sankyartesaanit-kampanjat/releases/tag/v1.0.2
+
 ## [1.0.1] - 2026-07-01
 
 ### Fixed

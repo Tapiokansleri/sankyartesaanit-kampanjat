@@ -182,3 +182,16 @@
 .editor-styles-wrapper .kansleri-sa-editor-preview .sa-testimonial__stars {
 	color: var(--sa-gold-accent);
 }
+
+.sa-prompt-export-help,
+.sa-prompt-export-meta {
+	margin: 0 0 12px;
+	font-size: 13px;
+	line-height: 1.55;
+	color: #1e1e1e;
+}
+
+.sa-prompt-export-meta {
+	font-size: 12px;
+	color: #646970;
+}
