@@ -5,10 +5,16 @@ $position   = ( $attributes['imagePosition'] ?? 'right' ) === 'left' ? 'left' : 
 $theme      = sanitize_html_class( $attributes['theme'] ?? 'default' );
 $paragraphs = $attributes['paragraphs'] ?? array();
 $list_items = $attributes['listItems'] ?? array();
+$media_type = ( $attributes['mediaType'] ?? 'image' ) === 'video' ? 'video' : 'image';
 
-$class = sprintf( 'sa-split-content alignfull sa-split-content--image-%s sa-split-content--%s', $position, $theme );
+$class = sprintf(
+	'sa-split-content alignfull sa-split-content--media-%s sa-split-content--image-%s sa-split-content--%s',
+	$media_type,
+	$position,
+	$theme
+);
 ?>
-<section <?php echo kansleri_sa_wrapper_attrs( $attributes, $class , $block_instance ); ?>>
+<section <?php echo kansleri_sa_wrapper_attrs( $attributes, $class, $block_instance ); ?>>
 	<div class="sa-container sa-split-content__grid">
 		<div class="sa-split-content__text">
 			<?php if ( ! empty( $attributes['eyebrow'] ) ) : ?>
@@ -33,7 +39,7 @@ $class = sprintf( 'sa-split-content alignfull sa-split-content--image-%s sa-spli
 			<?php endif; ?>
 		</div>
 		<div class="sa-split-content__media">
-			<?php kansleri_sa_render_image( $attributes, 'sa-split-content__image' ); ?>
+			<?php kansleri_sa_render_split_media( $attributes ); ?>
 		</div>
 	</div>
 </section>

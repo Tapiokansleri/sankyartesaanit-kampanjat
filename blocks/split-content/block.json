@@ -5,7 +5,7 @@
 	"title": "Sänkyartesaanit - Jaettu sisältö",
 	"category": "sankyartesaanit",
 	"icon": "align-pull-left",
-	"description": "Teksti ja kuva vierekkäin. Toistettava osio.",
+	"description": "Teksti ja kuva tai video vierekkäin. Toistettava osio.",
 	"textdomain": "kansleri-sankyartesaanit",
 	"attributes": {
 		"eyebrow": { "type": "string", "default": "" },
@@ -15,6 +15,13 @@
 		"imageId": { "type": "number", "default": 0 },
 		"imageUrl": { "type": "string", "default": "" },
 		"imageAlt": { "type": "string", "default": "" },
+		"mediaType": { "type": "string", "default": "image" },
+		"videoId": { "type": "number", "default": 0 },
+		"videoUrl": { "type": "string", "default": "" },
+		"videoPosterUrl": { "type": "string", "default": "" },
+		"videoAutoplay": { "type": "boolean", "default": false },
+		"videoLoop": { "type": "boolean", "default": false },
+		"videoMuted": { "type": "boolean", "default": false },
 		"imagePosition": { "type": "string", "default": "right" },
 		"theme": { "type": "string", "default": "default" }
 	},

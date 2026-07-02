@@ -98,6 +98,7 @@
 /* Images */
 .sa-hero__image,
 .sa-split-content__image,
+.sa-split-content__video,
 .sa-product-card__image,
 [class*="wp-block-sankyartesaanit"] img {
 	display: block;
@@ -417,6 +418,13 @@
 
 .sa-split-content__list li + li {
 	margin-top: 0.35rem;
+}
+
+.sa-split-content__video {
+	display: block;
+	width: 100%;
+	height: auto;
+	background: #000;
 }
 
 /* Product cards */

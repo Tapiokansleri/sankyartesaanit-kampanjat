@@ -92,13 +92,16 @@ class Kansleri_SA_Prompt_Schema {
 				),
 			),
 			'sankyartesaanit/split-content'     => array(
-				'title'  => 'Jaettu sisältö — teksti + kuva',
+				'title'  => 'Jaettu sisältö — teksti + kuva tai video',
 				'fields' => array(
 					'eyebrow'       => 'Yläotsikko (string)',
 					'title'         => 'Otsikko (string)',
 					'paragraphs[]'  => 'Kappaleet (string[])',
 					'listItems[]'   => 'Luettelokohdat (string[])',
-					'imageUrl, imageAlt, imageId' => 'Kuva',
+					'mediaType'     => '"image" | "video" (oletus: image)',
+					'imageUrl, imageAlt, imageId' => 'Kuva (tai videon poster-kuva)',
+					'videoUrl, videoId' => 'Video (mp4) — aseta mediaType: "video"',
+					'videoAutoplay, videoLoop, videoMuted' => 'Videon toistoasetukset (boolean)',
 					'imagePosition' => '"right" | "left"',
 				),
 			),

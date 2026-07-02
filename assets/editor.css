@@ -100,6 +100,13 @@
 	color: var(--sa-gold-accent);
 }
 
+.editor-styles-wrapper .kansleri-sa-editor-preview .sa-split-content__video {
+	display: block;
+	width: 100%;
+	height: auto;
+	background: #000;
+}
+
 .editor-styles-wrapper .kansleri-sa-editor-preview .sa-feature-columns__title,
 .editor-styles-wrapper .kansleri-sa-editor-preview .sa-split-content__title,
 .editor-styles-wrapper .kansleri-sa-editor-preview .sa-product-card__title,

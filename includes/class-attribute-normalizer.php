@@ -28,6 +28,8 @@ class Kansleri_SA_Attribute_Normalizer {
 				return self::normalize_stat_cards( $attributes );
 			case 'feature-columns':
 				return self::normalize_feature_columns( $attributes );
+			case 'split-content':
+				return self::normalize_split_content( $attributes );
 			default:
 				return $attributes;
 		}
@@ -202,5 +204,27 @@ class Kansleri_SA_Attribute_Normalizer {
 		}
 
 		return $column;
+	}
+
+	/**
+	 * @param array<string, mixed> $attributes Attributes.
+	 * @return array<string, mixed>
+	 */
+	private static function normalize_split_content( $attributes ) {
+		$attributes = self::map_aliases(
+			$attributes,
+			array(
+				'video'     => 'videoUrl',
+				'videoSrc'  => 'videoUrl',
+				'posterUrl' => 'videoPosterUrl',
+				'poster'    => 'videoPosterUrl',
+			)
+		);
+
+		if ( self::has_value( $attributes['videoUrl'] ?? null ) || self::has_value( $attributes['videoId'] ?? null ) ) {
+			$attributes['mediaType'] = 'video';
+		}
+
+		return $attributes;
 	}
 }

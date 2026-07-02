@@ -132,6 +132,91 @@
 		);
 	}
 
+	function videoField( label, attributes, setAttributes ) {
+		const videoUrl = attributes.videoUrl || '';
+		const videoId = attributes.videoId || 0;
+
+		return el(
+			'div',
+			{ className: 'sa-editor-video-field' },
+			el( 'p', { className: 'components-base-control__label' }, label ),
+			videoUrl
+				? el( 'video', {
+						src: videoUrl,
+						controls: true,
+						style: { maxWidth: '100%', marginBottom: '8px' },
+				  } )
+				: null,
+			el(
+				MediaUploadCheck,
+				null,
+				el( MediaUpload, {
+					onSelect: function ( media ) {
+						setAttributes( {
+							videoId: media.id,
+							videoUrl: media.url,
+						} );
+					},
+					allowedTypes: [ 'video' ],
+					value: videoId,
+					render: function ( obj ) {
+						return el(
+							Button,
+							{ variant: 'secondary', onClick: obj.open },
+							videoUrl ? __( 'Vaihda video', 'kansleri-sankyartesaanit' ) : __( 'Valitse video', 'kansleri-sankyartesaanit' )
+						);
+					},
+				} )
+			),
+			textField(
+				__( 'Videon URL (mp4)', 'kansleri-sankyartesaanit' ),
+				'videoUrl',
+				attributes,
+				setAttributes,
+				__( 'Voit liittää suoran mp4-osoitteen tai valita median kirjastosta.', 'kansleri-sankyartesaanit' )
+			),
+			videoUrl
+				? el(
+						Button,
+						{
+							isDestructive: true,
+							variant: 'link',
+							onClick: function () {
+								setAttributes( { videoId: 0, videoUrl: '' } );
+							},
+						},
+						__( 'Poista video', 'kansleri-sankyartesaanit' )
+				  )
+				: null,
+			el( ToggleControl, {
+				label: __( 'Toista automaattisesti', 'kansleri-sankyartesaanit' ),
+				checked: !! attributes.videoAutoplay,
+				help: __( 'Autoplay vaatii yleensä mykistetyn videon.', 'kansleri-sankyartesaanit' ),
+				onChange: function ( value ) {
+					const update = { videoAutoplay: value };
+					if ( value ) {
+						update.videoMuted = true;
+					}
+					setAttributes( update );
+				},
+			} ),
+			el( ToggleControl, {
+				label: __( 'Toista uudelleen', 'kansleri-sankyartesaanit' ),
+				checked: !! attributes.videoLoop,
+				onChange: function ( value ) {
+					setAttributes( { videoLoop: value } );
+				},
+			} ),
+			el( ToggleControl, {
+				label: __( 'Mykistetty', 'kansleri-sankyartesaanit' ),
+				checked: !! attributes.videoMuted,
+				onChange: function ( value ) {
+					setAttributes( { videoMuted: value } );
+				},
+			} )
+		);
+	}
+
 	function nestedImageField( item, index, arrayKey, attributes, setAttributes, label ) {
 		const items = ( attributes[ arrayKey ] || [] ).slice();
 		const current = items[ index ] || {};
@@ -593,10 +678,31 @@
 					),
 					el(
 						PanelBody,
-						{ title: __( 'Kuva', 'kansleri-sankyartesaanit' ) },
-						imageField( __( 'Kuva', 'kansleri-sankyartesaanit' ), attrs, props.setAttributes ),
+						{ title: __( 'Media', 'kansleri-sankyartesaanit' ) },
 						selectField(
-							__( 'Kuvan sijainti', 'kansleri-sankyartesaanit' ),
+							__( 'Median tyyppi', 'kansleri-sankyartesaanit' ),
+							'mediaType',
+							attrs,
+							props.setAttributes,
+							[
+								{ label: 'Kuva', value: 'image' },
+								{ label: 'Video (mp4)', value: 'video' },
+							]
+						),
+						( attrs.mediaType || 'image' ) === 'video'
+							? el(
+									Fragment,
+									null,
+									videoField( __( 'Video', 'kansleri-sankyartesaanit' ), attrs, props.setAttributes ),
+									imageField(
+										__( 'Esikatselukuva (poster)', 'kansleri-sankyartesaanit' ),
+										attrs,
+										props.setAttributes
+									)
+							  )
+							: imageField( __( 'Kuva', 'kansleri-sankyartesaanit' ), attrs, props.setAttributes ),
+						selectField(
+							__( 'Median sijainti', 'kansleri-sankyartesaanit' ),
 							'imagePosition',
 							attrs,
 							props.setAttributes,

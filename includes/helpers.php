@@ -35,6 +35,99 @@ function kansleri_sa_render_rich_text( $content ) {
 }
 
 /**
+ * Render video from block attributes.
+ *
+ * @param array  $attrs Attribute array with videoId, videoUrl, optional poster from imageUrl/imageId.
+ * @param string $class CSS class for video element.
+ */
+function kansleri_sa_render_video( $attrs, $class = 'sa-video' ) {
+	$url = $attrs['videoUrl'] ?? '';
+
+	if ( ! $url && ! empty( $attrs['videoId'] ) ) {
+		$url = wp_get_attachment_url( (int) $attrs['videoId'] ) ?: '';
+	}
+
+	if ( ! $url ) {
+		return;
+	}
+
+	$poster = $attrs['videoPosterUrl'] ?? '';
+
+	if ( ! $poster && ! empty( $attrs['imageUrl'] ) ) {
+		$poster = $attrs['imageUrl'];
+	}
+
+	if ( ! $poster && ! empty( $attrs['imageId'] ) ) {
+		$poster = wp_get_attachment_image_url( (int) $attrs['imageId'], 'large' ) ?: '';
+	}
+
+	$mime = 'video/mp4';
+	if ( ! empty( $attrs['videoId'] ) ) {
+		$attached_mime = get_post_mime_type( (int) $attrs['videoId'] );
+		if ( $attached_mime ) {
+			$mime = $attached_mime;
+		}
+	}
+
+	$video_attrs = array(
+		'class'       => $class,
+		'controls'    => true,
+		'playsinline' => true,
+		'preload'     => 'metadata',
+	);
+
+	if ( ! empty( $attrs['videoAutoplay'] ) ) {
+		$video_attrs['autoplay'] = true;
+	}
+
+	if ( ! empty( $attrs['videoLoop'] ) ) {
+		$video_attrs['loop'] = true;
+	}
+
+	if ( ! empty( $attrs['videoMuted'] ) || ! empty( $attrs['videoAutoplay'] ) ) {
+		$video_attrs['muted'] = true;
+	}
+
+	if ( $poster ) {
+		$video_attrs['poster'] = $poster;
+	}
+
+	echo '<video';
+	foreach ( $video_attrs as $attr_name => $attr_value ) {
+		if ( true === $attr_value ) {
+			echo ' ' . esc_attr( $attr_name );
+			continue;
+		}
+		printf( ' %1$s="%2$s"', esc_attr( $attr_name ), esc_attr( (string) $attr_value ) );
+	}
+	echo '>';
+
+	printf(
+		'<source src="%1$s" type="%2$s" />',
+		esc_url( $url ),
+		esc_attr( $mime )
+	);
+
+	echo '</video>';
+}
+
+/**
+ * Render split-content media (image or video).
+ *
+ * @param array $attrs Block attributes.
+ */
+function kansleri_sa_render_split_media( $attrs ) {
+	$media_type = $attrs['mediaType'] ?? 'image';
+
+	if ( 'video' === $media_type ) {
+		kansleri_sa_render_video( $attrs, 'sa-split-content__video' );
+		return;
+	}
+
+	kansleri_sa_render_image( $attrs, 'sa-split-content__image' );
+}
+
+/**
  * Render a button link.
  *
  * @param string $url    URL.

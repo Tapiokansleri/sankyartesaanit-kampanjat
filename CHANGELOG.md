@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented here.
 
+## [1.0.3] - 2026-07-01
+
+### Added
+
+- **Jaettu sisältö** block supports video (mp4) alongside images — media library upload, direct URL, optional poster, autoplay/loop/muted
+- Attribute normalizer accepts `video`, `videoSrc`, `poster`, and `posterUrl` aliases in pasted markup
+
+[1.0.3]: https://github.com/Tapiokansleri/sankyartesaanit-kampanjat/releases/tag/v1.0.3
+
 ## [1.0.2] - 2026-07-01
 
 ### Added
