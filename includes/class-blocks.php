@@ -39,7 +39,7 @@ class Kansleri_Sankyartesaanit_Blocks {
 
 		wp_register_style(
 			'kansleri-sa-fontawesome',
-			'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
+			KANSLERI_SA_PLUGIN_URL . 'assets/fontawesome/css/all.min.css',
 			array(),
 			'6.5.1'
 		);

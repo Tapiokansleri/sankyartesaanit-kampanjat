@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || exit;
 
 $items = $attributes['items'] ?? array();
 ?>
-<section <?php echo kansleri_sa_wrapper_attrs( $attributes, 'sa-numbered-features', $block_instance ); ?>>
+<section <?php kansleri_sa_print_wrapper_attrs( $attributes, 'sa-numbered-features', $block_instance ); ?>>
 	<div class="sa-container sa-numbered-features__inner">
 		<div class="sa-numbered-features__header">
 			<?php if ( ! empty( $attributes['eyebrow'] ) ) : ?>

@@ -46,7 +46,8 @@
 		"imageId": { "type": "number", "default": 0 },
 		"imageUrl": { "type": "string", "default": "" },
 		"imageAlt": { "type": "string", "default": "" },
-		"imagePosition": { "type": "string", "default": "right" }
+		"imagePosition": { "type": "string", "default": "right" },
+		"imageVerticalAlign": { "type": "string", "default": "center" }
 	},
 	"supports": {
 		"html": false,

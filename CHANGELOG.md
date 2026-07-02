@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented here.
 
+## [1.0.4] - 2026-07-02
+
+### Added
+
+- Hero **image vertical alignment** option (top / center)
+
+### Fixed
+
+- Split-content video no longer cropped; image and video no longer overlap — only the selected media type is shown
+- Hero image appears **before text on mobile**
+- Attribute normalizer no longer forces video mode when `videoId` is `0`
+- Plugin Check: GPL license header, `readme.txt`, self-hosted Font Awesome, escaped block wrapper attributes
+
+[1.0.4]: https://github.com/Tapiokansleri/sankyartesaanit-kampanjat/releases/tag/v1.0.4
+
 ## [1.0.3] - 2026-07-01
 
 ### Added

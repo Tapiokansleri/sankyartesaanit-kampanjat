@@ -557,6 +557,16 @@
 								{ label: 'Oikealla', value: 'right' },
 								{ label: 'Vasemmalla', value: 'left' },
 							]
+						),
+						selectField(
+							__( 'Kuvan pystysuunta', 'kansleri-sankyartesaanit' ),
+							'imageVerticalAlign',
+							attrs,
+							props.setAttributes,
+							[
+								{ label: 'Keskellä', value: 'center' },
+								{ label: 'Ylhäällä', value: 'top' },
+							]
 						)
 					)
 				),

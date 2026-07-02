@@ -14,7 +14,7 @@ $class = sprintf(
 	$theme
 );
 ?>
-<section <?php echo kansleri_sa_wrapper_attrs( $attributes, $class, $block_instance ); ?>>
+<section <?php kansleri_sa_print_wrapper_attrs( $attributes, $class, $block_instance ); ?>>
 	<div class="sa-container sa-split-content__grid">
 		<div class="sa-split-content__text">
 			<?php if ( ! empty( $attributes['eyebrow'] ) ) : ?>

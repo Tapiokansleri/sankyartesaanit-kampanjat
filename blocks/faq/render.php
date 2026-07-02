@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || exit;
 
 $items = $attributes['items'] ?? array();
 ?>
-<section <?php echo kansleri_sa_wrapper_attrs( $attributes, 'sa-faq alignfull', $block_instance ); ?>>
+<section <?php kansleri_sa_print_wrapper_attrs( $attributes, 'sa-faq alignfull', $block_instance ); ?>>
 	<div class="sa-container sa-faq__inner">
 		<?php if ( ! empty( $attributes['eyebrow'] ) ) : ?>
 			<p class="sa-eyebrow sa-faq__eyebrow"><?php kansleri_sa_esc_text( $attributes['eyebrow'] ); ?></p>

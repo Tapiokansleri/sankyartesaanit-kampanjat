@@ -5,7 +5,7 @@ $locations = $attributes['locations'] ?? array();
 $theme     = sanitize_html_class( $attributes['theme'] ?? 'sand' );
 $class     = 'sa-location-section alignfull sa-location-section--' . $theme;
 ?>
-<section <?php echo kansleri_sa_wrapper_attrs( $attributes, $class , $block_instance ); ?>>
+<section <?php kansleri_sa_print_wrapper_attrs( $attributes, $class, $block_instance ); ?>>
 	<div class="sa-container sa-location-section__intro">
 		<?php if ( ! empty( $attributes['eyebrow'] ) ) : ?>
 			<p class="sa-eyebrow"><?php kansleri_sa_esc_text( $attributes['eyebrow'] ); ?></p>

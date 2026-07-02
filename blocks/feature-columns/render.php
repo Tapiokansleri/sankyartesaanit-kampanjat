@@ -14,7 +14,7 @@ if ( $show_icons ) {
 	$class .= ' sa-feature-columns--has-icons';
 }
 ?>
-<section <?php echo kansleri_sa_wrapper_attrs( $attributes, $class, $block_instance ); ?>>
+<section <?php kansleri_sa_print_wrapper_attrs( $attributes, $class, $block_instance ); ?>>
 	<div class="sa-container sa-feature-columns__grid">
 		<?php foreach ( $columns as $column ) : ?>
 			<?php

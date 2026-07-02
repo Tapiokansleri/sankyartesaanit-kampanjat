@@ -7,7 +7,7 @@ if ( empty( $items ) ) {
 	return;
 }
 ?>
-<section <?php echo kansleri_sa_wrapper_attrs( $attributes, 'sa-testimonials alignfull' , $block_instance ); ?>>
+<section <?php kansleri_sa_print_wrapper_attrs( $attributes, 'sa-testimonials alignfull', $block_instance ); ?>>
 	<div class="sa-container sa-testimonials__grid">
 		<?php foreach ( $items as $item ) : ?>
 			<blockquote class="sa-testimonial">

@@ -35,22 +35,26 @@ function kansleri_sa_render_rich_text( $content ) {
 }
 
 /**
- * Render video from block attributes.
+ * Resolve video URL from block attributes.
  *
- * @param array  $attrs Attribute array with videoId, videoUrl, optional poster from imageUrl/imageId.
- * @param string $class CSS class for video element.
+ * @param array $attrs Attributes.
  */
-function kansleri_sa_render_video( $attrs, $class = 'sa-video' ) {
+function kansleri_sa_get_video_url( $attrs ) {
 	$url = $attrs['videoUrl'] ?? '';
 
 	if ( ! $url && ! empty( $attrs['videoId'] ) ) {
 		$url = wp_get_attachment_url( (int) $attrs['videoId'] ) ?: '';
 	}
 
-	if ( ! $url ) {
-		return;
-	}
+	return $url;
+}
 
+/**
+ * Resolve poster image URL for video blocks.
+ *
+ * @param array $attrs Attributes.
+ */
+function kansleri_sa_get_media_poster_url( $attrs ) {
 	$poster = $attrs['videoPosterUrl'] ?? '';
 
 	if ( ! $poster && ! empty( $attrs['imageUrl'] ) ) {
@@ -61,6 +65,24 @@ function kansleri_sa_render_video( $attrs, $class = 'sa-video' ) {
 		$poster = wp_get_attachment_image_url( (int) $attrs['imageId'], 'large' ) ?: '';
 	}
 
+	return $poster;
+}
+
+/**
+ * Render video from block attributes.
+ *
+ * @param array  $attrs Attribute array with videoId, videoUrl, optional poster from imageUrl/imageId.
+ * @param string $class CSS class for video element.
+ */
+function kansleri_sa_render_video( $attrs, $class = 'sa-video' ) {
+	$url = kansleri_sa_get_video_url( $attrs );
+
+	if ( ! $url ) {
+		return;
+	}
+
+	$poster = kansleri_sa_get_media_poster_url( $attrs );
+
 	$mime = 'video/mp4';
 	if ( ! empty( $attrs['videoId'] ) ) {
 		$attached_mime = get_post_mime_type( (int) $attrs['videoId'] );
@@ -69,12 +91,36 @@ function kansleri_sa_render_video( $attrs, $class = 'sa-video' ) {
 		}
 	}
 
+	$width  = 0;
+	$height = 0;
+
+	if ( ! empty( $attrs['videoId'] ) ) {
+		$meta = wp_get_attachment_metadata( (int) $attrs['videoId'] );
+		if ( ! empty( $meta['width'] ) && ! empty( $meta['height'] ) ) {
+			$width  = (int) $meta['width'];
+			$height = (int) $meta['height'];
+		}
+	}
+
+	if ( ( ! $width || ! $height ) && ! empty( $attrs['imageId'] ) ) {
+		$image_meta = wp_get_attachment_metadata( (int) $attrs['imageId'] );
+		if ( ! empty( $image_meta['width'] ) && ! empty( $image_meta['height'] ) ) {
+			$width  = (int) $image_meta['width'];
+			$height = (int) $image_meta['height'];
+		}
+	}
+
 	$video_attrs = array(
 		'class'       => $class,
 		'controls'    => true,
 		'playsinline' => true,
-		'preload'     => 'metadata',
+		'preload'     => 'auto',
 	);
+
+	if ( $width && $height ) {
+		$video_attrs['width']  = $width;
+		$video_attrs['height'] = $height;
+	}
 
 	if ( ! empty( $attrs['videoAutoplay'] ) ) {
 		$video_attrs['autoplay'] = true;
@@ -92,6 +138,8 @@ function kansleri_sa_render_video( $attrs, $class = 'sa-video' ) {
 		$video_attrs['poster'] = $poster;
 	}
 
+	echo '<div class="sa-media-frame">';
+
 	echo '<video';
 	foreach ( $video_attrs as $attr_name => $attr_value ) {
 		if ( true === $attr_value ) {
@@ -108,7 +156,7 @@ function kansleri_sa_render_video( $attrs, $class = 'sa-video' ) {
 		esc_attr( $mime )
 	);
 
-	echo '</video>';
+	echo '</video></div>';
 }
 
 /**
@@ -117,9 +165,9 @@ function kansleri_sa_render_video( $attrs, $class = 'sa-video' ) {
  * @param array $attrs Block attributes.
  */
 function kansleri_sa_render_split_media( $attrs ) {
-	$media_type = $attrs['mediaType'] ?? 'image';
+	$media_type = ( $attrs['mediaType'] ?? 'image' ) === 'video' ? 'video' : 'image';
 
-	if ( 'video' === $media_type ) {
+	if ( 'video' === $media_type && kansleri_sa_get_video_url( $attrs ) ) {
 		kansleri_sa_render_video( $attrs, 'sa-split-content__video' );
 		return;
 	}
@@ -261,4 +309,16 @@ function kansleri_sa_wrapper_attrs( $attributes, $class, $block = null ) {
 		),
 		$block
 	);
+}
+
+/**
+ * Output block wrapper attributes (escaped by WordPress core).
+ *
+ * @param array         $attributes Block attributes.
+ * @param string        $class      Base CSS class.
+ * @param WP_Block|null $block      Block instance.
+ */
+function kansleri_sa_print_wrapper_attrs( $attributes, $class, $block = null ) {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in get_block_wrapper_attributes().
+	echo kansleri_sa_wrapper_attrs( $attributes, $class, $block );
 }

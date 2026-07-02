@@ -1,11 +1,16 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-$position = ( $attributes['imagePosition'] ?? 'right' ) === 'left' ? 'left' : 'right';
-$class    = 'sa-hero alignfull sa-hero--image-' . $position;
+$position       = ( $attributes['imagePosition'] ?? 'right' ) === 'left' ? 'left' : 'right';
+$vertical_align = ( $attributes['imageVerticalAlign'] ?? 'center' ) === 'top' ? 'top' : 'center';
+$class          = sprintf(
+	'sa-hero alignfull sa-hero--image-%s sa-hero--valign-%s',
+	$position,
+	$vertical_align
+);
 $bonus_items = $attributes['bonusItems'] ?? array();
 ?>
-<section <?php echo kansleri_sa_wrapper_attrs( $attributes, $class, $block_instance ); ?>>
+<section <?php kansleri_sa_print_wrapper_attrs( $attributes, $class, $block_instance ); ?>>
 	<div class="sa-container sa-hero__grid">
 		<div class="sa-hero__content">
 			<?php if ( ! empty( $attributes['eyebrow'] ) ) : ?>

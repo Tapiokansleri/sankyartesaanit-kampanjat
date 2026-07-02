@@ -194,6 +194,14 @@
 	align-items: center;
 }
 
+.sa-hero--valign-top .sa-hero__grid {
+	align-items: start;
+}
+
+.sa-hero--valign-center .sa-hero__grid {
+	align-items: center;
+}
+
 .sa-hero--image-left .sa-hero__content {
 	order: 2;
 }
@@ -420,11 +428,19 @@
 	margin-top: 0.35rem;
 }
 
-.sa-split-content__video {
+.sa-media-frame {
+	display: block;
+	width: 100%;
+}
+
+.sa-media-frame .sa-split-content__video {
 	display: block;
 	width: 100%;
 	height: auto;
-	background: #000;
+	max-width: 100%;
+	margin: 0;
+	background: transparent;
+	vertical-align: top;
 }
 
 /* Product cards */
@@ -1150,8 +1166,14 @@
 		gap: 1rem;
 	}
 
-	.sa-hero--image-left .sa-hero__content,
-	.sa-hero--image-left .sa-hero__media,
+	.sa-hero__media {
+		order: 1;
+	}
+
+	.sa-hero__content {
+		order: 2;
+	}
+
 	.sa-split-content--image-left .sa-split-content__text,
 	.sa-split-content--image-left .sa-split-content__media {
 		order: unset;

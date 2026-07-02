@@ -221,7 +221,10 @@ class Kansleri_SA_Attribute_Normalizer {
 			)
 		);
 
-		if ( self::has_value( $attributes['videoUrl'] ?? null ) || self::has_value( $attributes['videoId'] ?? null ) ) {
+		$has_video = self::has_value( $attributes['videoUrl'] ?? null )
+			|| ( ! empty( $attributes['videoId'] ) && (int) $attributes['videoId'] > 0 );
+
+		if ( $has_video && 'image' !== ( $attributes['mediaType'] ?? '' ) ) {
 			$attributes['mediaType'] = 'video';
 		}
 

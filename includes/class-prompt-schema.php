@@ -81,6 +81,7 @@ class Kansleri_SA_Prompt_Schema {
 					'scarcityBadge'       => 'Kiireellisyysmerkintä kuvalla (string, valinnainen)',
 					'imageUrl, imageAlt, imageId' => 'Hero-kuva',
 					'imagePosition'       => '"right" | "left"',
+					'imageVerticalAlign'  => '"center" | "top" — kuvan pystysuuntainen tasaus',
 				),
 			),
 			'sankyartesaanit/feature-columns'   => array(

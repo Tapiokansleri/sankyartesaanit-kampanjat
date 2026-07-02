@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 ?>
-<section <?php echo kansleri_sa_wrapper_attrs( $attributes, 'sa-cta-section', $block_instance ); ?>>
+<section <?php kansleri_sa_print_wrapper_attrs( $attributes, 'sa-cta-section', $block_instance ); ?>>
 	<div class="sa-container sa-cta-section__inner">
 		<?php if ( ! empty( $attributes['eyebrow'] ) ) : ?>
 			<p class="sa-eyebrow sa-eyebrow--gold-pale sa-cta-section__eyebrow"><?php kansleri_sa_esc_text( $attributes['eyebrow'] ); ?></p>

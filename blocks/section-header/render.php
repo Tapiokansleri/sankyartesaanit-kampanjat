@@ -17,7 +17,7 @@ $class = sprintf(
 	sanitize_html_class( $align )
 );
 ?>
-<section <?php echo kansleri_sa_wrapper_attrs( $attributes, $class , $block_instance ); ?>>
+<section <?php kansleri_sa_print_wrapper_attrs( $attributes, $class, $block_instance ); ?>>
 	<div class="sa-container sa-section-header__inner">
 		<?php if ( $eyebrow ) : ?>
 			<p class="sa-eyebrow"><?php kansleri_sa_esc_text( $eyebrow ); ?></p>
