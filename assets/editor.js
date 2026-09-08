@@ -1,6 +1,6 @@
 ( function ( blocks, element, components, blockEditor, serverSideRender, i18n ) {
 	const { registerBlockType } = blocks;
-	const { createElement: el, Fragment } = element;
+	const { createElement: el, Fragment, useState, useEffect, useRef } = element;
 	const {
 		PanelBody,
 		TextControl,
@@ -217,6 +217,78 @@
 		);
 	}
 
+	function getYoutubeId( url ) {
+		const value = ( url || '' ).trim();
+
+		if ( ! value ) {
+			return '';
+		}
+
+		if ( /^[a-zA-Z0-9_-]{11}$/.test( value ) ) {
+			return value;
+		}
+
+		const match = value.match(
+			/(?:youtube\.com\/watch\?(?:[^&]+&)*v=|youtube\.com\/embed\/|youtube\.com\/shorts\/|youtu\.be\/)([a-zA-Z0-9_-]{11})/
+		);
+
+		return match ? match[1] : '';
+	}
+
+	function youtubeField( attributes, setAttributes ) {
+		const youtubeUrl = attributes.youtubeUrl || '';
+		const youtubeId = getYoutubeId( youtubeUrl );
+		const orientation = ( attributes.youtubeOrientation || 'horizontal' ) === 'vertical' ? 'vertical' : 'horizontal';
+		const aspectRatio = orientation === 'vertical' ? '9 / 16' : '16 / 9';
+
+		return el(
+			'div',
+			{ className: 'sa-editor-youtube-field' },
+			textField(
+				__( 'YouTube-linkki', 'kansleri-sankyartesaanit' ),
+				'youtubeUrl',
+				attributes,
+				setAttributes,
+				__( 'Liitä YouTube-videon osoite (youtube.com tai youtu.be). Lataa video ensin YouTubeen.', 'kansleri-sankyartesaanit' )
+			),
+			selectField(
+				__( 'Videon suunta', 'kansleri-sankyartesaanit' ),
+				'youtubeOrientation',
+				attributes,
+				setAttributes,
+				[
+					{ label: 'Vaakasuunta (16:9)', value: 'horizontal' },
+					{ label: 'Pystysuunta (9:16)', value: 'vertical' },
+				]
+			),
+			youtubeId
+				? el( 'iframe', {
+						title: __( 'YouTube-esikatselu', 'kansleri-sankyartesaanit' ),
+						src: 'https://www.youtube-nocookie.com/embed/' + youtubeId + '?rel=0&modestbranding=1',
+						style: {
+							width: '100%',
+							maxWidth: orientation === 'vertical' ? '220px' : '100%',
+							aspectRatio: aspectRatio,
+							border: 0,
+							marginBottom: '8px',
+							display: 'block',
+							marginInline: orientation === 'vertical' ? 'auto' : undefined,
+						},
+						loading: 'lazy',
+						allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share',
+						allowFullScreen: true,
+				  } )
+				: null,
+			textField(
+				__( 'Videon kuvaus (saavutettavuus)', 'kansleri-sankyartesaanit' ),
+				'imageAlt',
+				attributes,
+				setAttributes,
+				__( 'Kuvaa lyhyesti videon sisältö ruudunlukijoille.', 'kansleri-sankyartesaanit' )
+			)
+		);
+	}
+
 	function nestedImageField( item, index, arrayKey, attributes, setAttributes, label ) {
 		const items = ( attributes[ arrayKey ] || [] ).slice();
 		const current = items[ index ] || {};
@@ -257,6 +329,177 @@
 					},
 				} )
 			)
+		);
+	}
+
+	function DebouncedPreview( props ) {
+		const debouncedAttributes = useDebouncedAttributes( props.attributes, 500 );
+
+		return preview( props.blockName, debouncedAttributes );
+	}
+
+	function useDebouncedAttributes( attributes, delay ) {
+		const [ debounced, setDebounced ] = useState( attributes );
+		const timerRef = useRef( null );
+
+		useEffect(
+			function () {
+				clearTimeout( timerRef.current );
+				timerRef.current = setTimeout( function () {
+					setDebounced( attributes );
+				}, delay );
+
+				return function () {
+					clearTimeout( timerRef.current );
+				};
+			},
+			[ attributes, delay ]
+		);
+
+		return debounced;
+	}
+
+	function cloneItems( items ) {
+		return ( items || [] ).map( function ( item ) {
+			return Object.assign( {}, item );
+		} );
+	}
+
+	function FaqBlockEdit( props ) {
+		const attributes = props.attributes;
+		const setAttributes = props.setAttributes;
+		const [ items, setItems ] = useState( function () {
+			return cloneItems( attributes.items );
+		} );
+		const saveTimer = useRef( null );
+		const lastSaved = useRef( JSON.stringify( attributes.items || [] ) );
+
+		useEffect(
+			function () {
+				const incoming = JSON.stringify( attributes.items || [] );
+
+				if ( incoming === lastSaved.current ) {
+					return;
+				}
+
+				lastSaved.current = incoming;
+				setItems( cloneItems( attributes.items ) );
+			},
+			[ attributes.items ]
+		);
+
+		function persistItems( nextItems ) {
+			setItems( nextItems );
+			clearTimeout( saveTimer.current );
+			saveTimer.current = setTimeout( function () {
+				lastSaved.current = JSON.stringify( nextItems );
+				setAttributes( { items: nextItems } );
+			}, 400 );
+		}
+
+		function updateItem( index, patch ) {
+			const next = items.slice();
+			next[ index ] = Object.assign( {}, next[ index ], patch );
+			persistItems( next );
+		}
+
+		return el(
+			Fragment,
+			null,
+			el(
+				InspectorControls,
+				null,
+				el(
+					PanelBody,
+					{ title: __( 'Otsikko', 'kansleri-sankyartesaanit' ), initialOpen: true },
+					textField( __( 'Yläotsikko', 'kansleri-sankyartesaanit' ), 'eyebrow', attributes, setAttributes ),
+					textField( __( 'Otsikko', 'kansleri-sankyartesaanit' ), 'title', attributes, setAttributes )
+				),
+				el(
+					PanelBody,
+					{ title: __( 'Kysymykset', 'kansleri-sankyartesaanit' ), initialOpen: true },
+					el(
+						'p',
+						{ className: 'sa-editor-note' },
+						__( 'Muokkaa kysymyksiä ja vastauksia alla. Vastauksissa voi käyttää lihavointia ja linkkejä.', 'kansleri-sankyartesaanit' )
+					),
+					items.map( function ( item, index ) {
+						return el(
+							'div',
+							{ key: 'faq-item-' + index, className: 'sa-editor-repeater-item' },
+							el(
+								'p',
+								{ className: 'sa-editor-repeater-item__title' },
+								__( 'Kysymys', 'kansleri-sankyartesaanit' ) + ' ' + ( index + 1 )
+							),
+							el( TextControl, {
+								label: __( 'Kysymys', 'kansleri-sankyartesaanit' ),
+								value: item.question || '',
+								onChange: function ( value ) {
+									updateItem( index, { question: value } );
+								},
+							} ),
+							el(
+								'div',
+								{ className: 'sa-editor-rich-text-field' },
+								el( 'p', { className: 'components-base-control__label' }, __( 'Vastaus', 'kansleri-sankyartesaanit' ) ),
+								el( RichText, {
+									identifier: 'faq-answer-' + index,
+									tagName: 'div',
+									className: 'sa-editor-rich-text',
+									value: item.answer || '',
+									onChange: function ( value ) {
+										updateItem( index, { answer: value } );
+									},
+									allowedFormats: [
+										'core/bold',
+										'core/italic',
+										'core/link',
+										'core/strikethrough',
+										'core/list',
+									],
+									multiline: 'p',
+									placeholder: __( 'Kirjoita vastaus…', 'kansleri-sankyartesaanit' ),
+								} )
+							),
+							el(
+								Button,
+								{
+									isDestructive: true,
+									variant: 'secondary',
+									onClick: function () {
+										const next = items.slice();
+										next.splice( index, 1 );
+										persistItems( next );
+									},
+								},
+								__( 'Poista', 'kansleri-sankyartesaanit' )
+							)
+						);
+					} ),
+					el(
+						Button,
+						{
+							variant: 'primary',
+							onClick: function () {
+								persistItems(
+									items.concat( [
+										{
+											question: '',
+											answer: '',
+										},
+									] )
+								);
+							},
+						},
+						__( 'Lisää kysymys', 'kansleri-sankyartesaanit' )
+					)
+				)
+			),
+			el( DebouncedPreview, {
+				blockName: 'sankyartesaanit/faq',
+				attributes: attributes,
+			} )
 		);
 	}
 
@@ -351,9 +594,10 @@
 						if ( field.type === 'rich-text' ) {
 							return el(
 								'div',
-								{ key: field.key, className: 'sa-editor-rich-text-field' },
+								{ key: field.key + '-' + index, className: 'sa-editor-rich-text-field' },
 								el( 'p', { className: 'components-base-control__label' }, field.label ),
 								el( RichText, {
+									identifier: config.arrayKey + '-' + field.key + '-' + index,
 									tagName: 'div',
 									className: 'sa-editor-rich-text',
 									value: value,
@@ -546,10 +790,22 @@
 					),
 					el(
 						PanelBody,
-						{ title: __( 'Kuva', 'kansleri-sankyartesaanit' ) },
-						imageField( __( 'Hero-kuva', 'kansleri-sankyartesaanit' ), attrs, props.setAttributes ),
+						{ title: __( 'Media', 'kansleri-sankyartesaanit' ) },
 						selectField(
-							__( 'Kuvan sijainti', 'kansleri-sankyartesaanit' ),
+							__( 'Median tyyppi', 'kansleri-sankyartesaanit' ),
+							'mediaType',
+							attrs,
+							props.setAttributes,
+							[
+								{ label: 'Kuva', value: 'image' },
+								{ label: 'YouTube-video', value: 'youtube' },
+							]
+						),
+						( attrs.mediaType || 'image' ) === 'youtube'
+							? youtubeField( attrs, props.setAttributes )
+							: imageField( __( 'Hero-kuva', 'kansleri-sankyartesaanit' ), attrs, props.setAttributes ),
+						selectField(
+							__( 'Median sijainti', 'kansleri-sankyartesaanit' ),
 							'imagePosition',
 							attrs,
 							props.setAttributes,
@@ -559,7 +815,7 @@
 							]
 						),
 						selectField(
-							__( 'Kuvan pystysuunta', 'kansleri-sankyartesaanit' ),
+							__( 'Median pystysuunta', 'kansleri-sankyartesaanit' ),
 							'imageVerticalAlign',
 							attrs,
 							props.setAttributes,
@@ -969,44 +1225,7 @@
 	} );
 
 	registerBlockType( 'sankyartesaanit/faq', {
-		edit: function ( props ) {
-			const attrs = props.attributes;
-			return el(
-				Fragment,
-				null,
-				el(
-					InspectorControls,
-					null,
-					el(
-						PanelBody,
-						{ title: __( 'Otsikko', 'kansleri-sankyartesaanit' ), initialOpen: true },
-						textField( __( 'Yläotsikko', 'kansleri-sankyartesaanit' ), 'eyebrow', attrs, props.setAttributes ),
-						textField( __( 'Otsikko', 'kansleri-sankyartesaanit' ), 'title', attrs, props.setAttributes )
-					),
-					el(
-						PanelBody,
-						{ title: __( 'Kysymykset', 'kansleri-sankyartesaanit' ) },
-						repeaterControls( {
-							attributes: attrs,
-							setAttributes: props.setAttributes,
-							arrayKey: 'items',
-							itemLabel: __( 'Kysymys', 'kansleri-sankyartesaanit' ),
-							defaultItem: { question: '', answer: '' },
-							fields: [
-								{ key: 'question', label: __( 'Kysymys', 'kansleri-sankyartesaanit' ) },
-								{
-									key: 'answer',
-									label: __( 'Vastaus', 'kansleri-sankyartesaanit' ),
-									type: 'rich-text',
-									placeholder: __( 'Kirjoita vastaus…', 'kansleri-sankyartesaanit' ),
-								},
-							],
-						} )
-					)
-				),
-				preview( 'sankyartesaanit/faq', attrs )
-			);
-		},
+		edit: FaqBlockEdit,
 		save: function () {
 			return null;
 		},

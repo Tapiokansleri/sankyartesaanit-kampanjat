@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented here.
 
+## [1.0.5] - 2026-09-08
+
+### Added
+
+- Hero block **YouTube video** media type with horizontal / vertical orientation (Shorts auto-detected)
+
+### Fixed
+
+- **UKK (FAQ)** block: answer RichText fields now editable in the sidebar — debounced local state and preview prevent focus loss on each keystroke
+
+[1.0.5]: https://github.com/Tapiokansleri/sankyartesaanit-kampanjat/releases/tag/v1.0.5
+
 ## [1.0.4] - 2026-07-02
 
 ### Added

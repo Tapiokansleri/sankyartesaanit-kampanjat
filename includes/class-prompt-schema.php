@@ -62,7 +62,7 @@ class Kansleri_SA_Prompt_Schema {
 				),
 			),
 			'sankyartesaanit/hero'              => array(
-				'title'  => 'Hero — pääosio kuvalla',
+				'title'  => 'Hero — pääosio kuvalla tai YouTube-videolla',
 				'fields' => array(
 					'eyebrow'             => 'Yläotsikko (string)',
 					'title'               => 'Pääotsikko h1 (string)',
@@ -79,9 +79,12 @@ class Kansleri_SA_Prompt_Schema {
 					'secondaryButtonUrl / ctaSecondaryLink'   => 'Toissijainen linkki (string)',
 					'trustItems / microtrust' => 'Luottamusmerkit (string[], 4 kpl)',
 					'scarcityBadge'       => 'Kiireellisyysmerkintä kuvalla (string, valinnainen)',
+					'mediaType'           => '"image" | "youtube" (oletus: image)',
 					'imageUrl, imageAlt, imageId' => 'Hero-kuva',
+					'youtubeUrl, youtube, youtubeLink' => 'YouTube-linkki — aseta mediaType: "youtube"',
+					'youtubeOrientation'  => '"horizontal" | "vertical" — vaaka 16:9 tai pysty 9:16',
 					'imagePosition'       => '"right" | "left"',
-					'imageVerticalAlign'  => '"center" | "top" — kuvan pystysuuntainen tasaus',
+					'imageVerticalAlign'  => '"center" | "top" — median pystysuuntainen tasaus',
 				),
 			),
 			'sankyartesaanit/feature-columns'   => array(

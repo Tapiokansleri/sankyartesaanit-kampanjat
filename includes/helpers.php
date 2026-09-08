@@ -176,6 +176,102 @@ function kansleri_sa_render_split_media( $attrs ) {
 }
 
 /**
+ * Extract a YouTube video ID from a URL or bare ID.
+ *
+ * @param string $url YouTube URL or 11-character video ID.
+ */
+function kansleri_sa_get_youtube_id( $url ) {
+	$url = trim( (string) $url );
+
+	if ( ! $url ) {
+		return '';
+	}
+
+	if ( preg_match( '/^[a-zA-Z0-9_-]{11}$/', $url ) ) {
+		return $url;
+	}
+
+	$patterns = array(
+		'#(?:youtube\.com/watch\?(?:[^&]+&)*v=|youtube\.com/embed/|youtube\.com/shorts/|youtu\.be/)([a-zA-Z0-9_-]{11})#',
+	);
+
+	foreach ( $patterns as $pattern ) {
+		if ( preg_match( $pattern, $url, $matches ) ) {
+			return $matches[1];
+		}
+	}
+
+	return '';
+}
+
+/**
+ * Resolve YouTube embed orientation.
+ *
+ * @param array $attrs Block attributes.
+ */
+function kansleri_sa_get_youtube_orientation( $attrs ) {
+	$orientation = $attrs['youtubeOrientation'] ?? 'horizontal';
+
+	return 'vertical' === $orientation ? 'vertical' : 'horizontal';
+}
+
+/**
+ * Render a responsive YouTube embed.
+ *
+ * @param string $url         YouTube URL or video ID.
+ * @param string $class       CSS class for the iframe.
+ * @param string $title       Accessible iframe title.
+ * @param string $orientation "horizontal" or "vertical".
+ */
+function kansleri_sa_render_youtube_embed( $url, $class = 'sa-youtube-embed', $title = '', $orientation = 'horizontal' ) {
+	$video_id = kansleri_sa_get_youtube_id( $url );
+
+	if ( ! $video_id ) {
+		return;
+	}
+
+	$orientation  = 'vertical' === $orientation ? 'vertical' : 'horizontal';
+	$iframe_title = $title ? $title : __( 'YouTube video', 'kansleri-sankyartesaanit' );
+	$src          = sprintf(
+		'https://www.youtube-nocookie.com/embed/%1$s?rel=0&modestbranding=1',
+		rawurlencode( $video_id )
+	);
+
+	printf(
+		'<div class="sa-youtube-embed-wrap sa-youtube-embed-wrap--%1$s">',
+		esc_attr( $orientation )
+	);
+	printf(
+		'<iframe class="%1$s" src="%2$s" title="%3$s" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+		esc_attr( $class ),
+		esc_url( $src ),
+		esc_attr( $iframe_title )
+	);
+	echo '</div>';
+}
+
+/**
+ * Render hero media (image or YouTube video).
+ *
+ * @param array $attrs Block attributes.
+ */
+function kansleri_sa_render_hero_media( $attrs ) {
+	$media_type = ( $attrs['mediaType'] ?? 'image' ) === 'youtube' ? 'youtube' : 'image';
+
+	if ( 'youtube' === $media_type && kansleri_sa_get_youtube_id( $attrs['youtubeUrl'] ?? '' ) ) {
+		kansleri_sa_render_youtube_embed(
+			$attrs['youtubeUrl'],
+			'sa-hero__youtube',
+			$attrs['imageAlt'] ?? ( $attrs['title'] ?? '' ),
+			kansleri_sa_get_youtube_orientation( $attrs )
+		);
+		return;
+	}
+
+	kansleri_sa_render_image( $attrs, 'sa-hero__image' );
+}
+
+/**
  * Render a button link.
  *
  * @param string $url    URL.

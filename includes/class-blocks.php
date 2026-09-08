@@ -95,7 +95,7 @@ class Kansleri_Sankyartesaanit_Blocks {
 			wp_enqueue_style( 'kansleri-sa-fontawesome' );
 		}
 
-		if ( 'faq' === $block ) {
+		if ( 'faq' === $block && ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
 			wp_enqueue_script( 'kansleri-sa-faq' );
 		}
 

@@ -4,7 +4,7 @@ Tags: gutenberg, blocks, landing-page, kampanja
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,10 @@ WordPress plugin for Sänkyartesaanit campaign landing pages. Create a Kampanja 
 3. Go to **Kampanjat → Lisää uusi** to create a campaign page.
 
 == Changelog ==
+
+= 1.0.5 =
+* Hero block supports YouTube video (horizontal / vertical orientation)
+* Fix FAQ block: answer fields editable in the editor sidebar (debounced preview)
 
 = 1.0.4 =
 * Fix split-content video cropping and image/video overlap on the frontend

@@ -85,6 +85,25 @@ class Kansleri_SA_Attribute_Normalizer {
 			$attributes['trustItems'] = $attributes['microtrust'];
 		}
 
+		$attributes = self::map_aliases(
+			$attributes,
+			array(
+				'youtube'     => 'youtubeUrl',
+				'youtubeLink' => 'youtubeUrl',
+			)
+		);
+
+		if ( self::has_value( $attributes['youtubeUrl'] ?? null ) && 'image' !== ( $attributes['mediaType'] ?? '' ) ) {
+			$attributes['mediaType'] = 'youtube';
+		}
+
+		if (
+			self::has_value( $attributes['youtubeUrl'] ?? null )
+			&& str_contains( (string) $attributes['youtubeUrl'], '/shorts/' )
+		) {
+			$attributes['youtubeOrientation'] = 'vertical';
+		}
+
 		return $attributes;
 	}
 

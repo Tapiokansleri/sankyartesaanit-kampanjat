@@ -3,10 +3,19 @@ defined( 'ABSPATH' ) || exit;
 
 $position       = ( $attributes['imagePosition'] ?? 'right' ) === 'left' ? 'left' : 'right';
 $vertical_align = ( $attributes['imageVerticalAlign'] ?? 'center' ) === 'top' ? 'top' : 'center';
-$class          = sprintf(
-	'sa-hero alignfull sa-hero--image-%s sa-hero--valign-%s',
+$media_type     = ( $attributes['mediaType'] ?? 'image' ) === 'youtube' ? 'youtube' : 'image';
+$youtube_class  = '';
+
+if ( 'youtube' === $media_type ) {
+	$youtube_class = ' sa-hero--youtube-' . kansleri_sa_get_youtube_orientation( $attributes );
+}
+
+$class = sprintf(
+	'sa-hero alignfull sa-hero--image-%s sa-hero--valign-%s sa-hero--media-%s%s',
 	$position,
-	$vertical_align
+	$vertical_align,
+	$media_type,
+	$youtube_class
 );
 $bonus_items = $attributes['bonusItems'] ?? array();
 ?>
@@ -90,7 +99,7 @@ $bonus_items = $attributes['bonusItems'] ?? array();
 			<?php if ( ! empty( $attributes['scarcityBadge'] ) ) : ?>
 				<span class="sa-hero__badge"><?php kansleri_sa_esc_text( $attributes['scarcityBadge'] ); ?></span>
 			<?php endif; ?>
-			<?php kansleri_sa_render_image( $attributes, 'sa-hero__image' ); ?>
+			<?php kansleri_sa_render_hero_media( $attributes ); ?>
 		</div>
 	</div>
 </section>

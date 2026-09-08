@@ -5,7 +5,7 @@
 	"title": "Sänkyartesaanit - Hero",
 	"category": "sankyartesaanit",
 	"icon": "cover-image",
-	"description": "Päähero kuvalla, hinnoittelulla ja toimintopainikkeilla.",
+	"description": "Päähero kuvalla tai YouTube-videolla, hinnoittelulla ja toimintopainikkeilla.",
 	"keywords": ["hero", "landing"],
 	"textdomain": "kansleri-sankyartesaanit",
 	"attributes": {
@@ -46,6 +46,9 @@
 		"imageId": { "type": "number", "default": 0 },
 		"imageUrl": { "type": "string", "default": "" },
 		"imageAlt": { "type": "string", "default": "" },
+		"mediaType": { "type": "string", "default": "image" },
+		"youtubeUrl": { "type": "string", "default": "" },
+		"youtubeOrientation": { "type": "string", "default": "horizontal" },
 		"imagePosition": { "type": "string", "default": "right" },
 		"imageVerticalAlign": { "type": "string", "default": "center" }
 	},

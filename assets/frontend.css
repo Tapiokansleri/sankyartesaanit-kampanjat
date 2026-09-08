@@ -284,6 +284,31 @@
 	position: relative;
 }
 
+.sa-youtube-embed-wrap {
+	position: relative;
+	width: 100%;
+	background: #000;
+}
+
+.sa-youtube-embed-wrap--horizontal {
+	aspect-ratio: 16 / 9;
+}
+
+.sa-youtube-embed-wrap--vertical {
+	aspect-ratio: 9 / 16;
+	max-width: min(100%, 22rem);
+	margin-inline: auto;
+}
+
+.sa-youtube-embed-wrap .sa-hero__youtube {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
 .sa-hero__badge {
 	position: absolute;
 	top: 1rem;
