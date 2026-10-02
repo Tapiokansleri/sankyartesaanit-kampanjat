@@ -14,7 +14,7 @@ if ( 'youtube' === $media_type ) {
 $is_editor_preview = defined( 'REST_REQUEST' ) && REST_REQUEST;
 $video_bg_url      = trim( (string) ( $attributes['videoBgUrl'] ?? '' ) );
 $video_bg          = ! empty( $attributes['videoBackground'] ) && '' !== $video_bg_url;
-$video_overlay     = max( 0, min( 90, (int) ( $attributes['videoOverlay'] ?? 55 ) ) ) / 100;
+$video_overlay     = max( 0, min( 90, (int) ( $attributes['videoOverlay'] ?? 60 ) ) ) / 100;
 $poster_url        = $attributes['imageUrl'] ?? '';
 
 $class = sprintf(

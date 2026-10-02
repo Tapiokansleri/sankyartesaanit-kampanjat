@@ -873,12 +873,12 @@
 							? el( RangeControl, {
 									label: __( 'Taustan tummennus (%)', 'kansleri-sankyartesaanit' ),
 									help: __( 'Tummentaa videota, jotta teksti pysyy luettavana.', 'kansleri-sankyartesaanit' ),
-									value: typeof attrs.videoOverlay === 'number' ? attrs.videoOverlay : 55,
+									value: typeof attrs.videoOverlay === 'number' ? attrs.videoOverlay : 60,
 									min: 0,
 									max: 90,
 									step: 5,
 									onChange: function ( value ) {
-										props.setAttributes( { videoOverlay: typeof value === 'number' ? value : 55 } );
+										props.setAttributes( { videoOverlay: typeof value === 'number' ? value : 60 } );
 									},
 							  } )
 							: null,

@@ -449,16 +449,23 @@
 	pointer-events: none;
 }
 
+/* Left-to-right fade plus a deeper bottom edge, so the bonus list and trust points stay readable on bright scenes */
 .sa-hero__overlay {
 	position: absolute;
 	inset: 0;
 	z-index: 1;
-	background: linear-gradient(
-		90deg,
-		rgba(30, 44, 55, var(--sa-hero-overlay, 0.55)) 0%,
-		rgba(30, 44, 55, calc(var(--sa-hero-overlay, 0.55) * 0.7)) 60%,
-		rgba(30, 44, 55, calc(var(--sa-hero-overlay, 0.55) * 0.4)) 100%
-	);
+	background:
+		linear-gradient(
+			0deg,
+			rgba(30, 44, 55, calc(var(--sa-hero-overlay, 0.6) * 1.1)) 0%,
+			rgba(30, 44, 55, 0) 55%
+		),
+		linear-gradient(
+			90deg,
+			rgba(30, 44, 55, var(--sa-hero-overlay, 0.6)) 0%,
+			rgba(30, 44, 55, calc(var(--sa-hero-overlay, 0.6) * 0.8)) 60%,
+			rgba(30, 44, 55, calc(var(--sa-hero-overlay, 0.6) * 0.6)) 100%
+		);
 }
 
 .sa-hero--video-bg .sa-hero__grid,
@@ -1209,7 +1216,7 @@
 	}
 
 	.sa-hero__overlay {
-		background: rgba(30, 44, 55, var(--sa-hero-overlay, 0.55));
+		background: rgba(30, 44, 55, var(--sa-hero-overlay, 0.6));
 	}
 
 	.sa-hero--video-bg .sa-hero__content {

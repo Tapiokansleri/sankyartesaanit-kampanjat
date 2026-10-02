@@ -52,7 +52,7 @@
 		"videoBackground": { "type": "boolean", "default": false },
 		"videoBgId": { "type": "number", "default": 0 },
 		"videoBgUrl": { "type": "string", "default": "" },
-		"videoOverlay": { "type": "number", "default": 55 },
+		"videoOverlay": { "type": "number", "default": 60 },
 		"imagePosition": { "type": "string", "default": "right" },
 		"imageVerticalAlign": { "type": "string", "default": "center" }
 	},

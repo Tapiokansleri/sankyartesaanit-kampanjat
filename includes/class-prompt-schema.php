@@ -85,7 +85,7 @@ class Kansleri_SA_Prompt_Schema {
 					'youtubeOrientation'  => '"horizontal" | "vertical" — vaaka 16:9 tai pysty 9:16',
 					'videoBackground'     => 'true | false — video toistuu hiljaa ja silmukkana hero-osion taustalla; mediaa ei näytetä erikseen, imageUrl toimii varakuvana',
 					'videoBgUrl, videoBgId' => 'Taustavideon mp4/webm-osoite (mediakirjastosta) — pakollinen kun videoBackground on true',
-					'videoOverlay'        => 'Taustan tummennus 0–90, oletus 55 (vain kun videoBackground on true)',
+					'videoOverlay'        => 'Taustan tummennus 0–90, oletus 60 (vain kun videoBackground on true)',
 					'imagePosition'       => '"right" | "left"',
 					'imageVerticalAlign'  => '"center" | "top" — median pystysuuntainen tasaus',
 				),
