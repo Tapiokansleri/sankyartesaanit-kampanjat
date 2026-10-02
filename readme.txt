@@ -4,7 +4,7 @@ Tags: gutenberg, blocks, landing-page, kampanja
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Kampanjat-laskeutumissivut Sänkyartesaanit-lohkoilla. Luo kampanja → kaikki l
 
 WordPress plugin for Sänkyartesaanit campaign landing pages. Create a Kampanja post and the full landing page block structure is seeded automatically.
 
-* Kampanjat custom post type with auto-seeded landing template
+* Kampanjat custom post type; new campaigns start from the Hypnosé Ultra landing page (media follows the site's media library)
 * 13 Gutenberg blocks (sidebar editing + live server-side preview)
 * Font Awesome icon picker on feature columns and stat cards
 * Full-width kampanja layout (Astra-compatible)
@@ -27,6 +27,13 @@ WordPress plugin for Sänkyartesaanit campaign landing pages. Create a Kampanja 
 3. Go to **Kampanjat → Lisää uusi** to create a campaign page.
 
 == Changelog ==
+
+= 1.2.0 =
+* New default landing page for new campaigns (Hypnosé Ultra layout with video hero, CTA rows, logos and booking calendar); the old Factory Sale layout stays available as a block pattern
+* Template media is resolved per site (attachment IDs and uploads URL), with a hot-link fallback so images are never broken
+* WP-CLI: wp kansleri-sa export-template <post_id> saves a page as the default template
+* Fix: Reset blocks / auto-seeding stripped backslashes from block markup
+* Fix: hero video-background text colour in the editor preview
 
 = 1.1.0 =
 * Hero video background option: silent looping mp4/webm with overlay, poster fallback, pause button and reduced-motion support

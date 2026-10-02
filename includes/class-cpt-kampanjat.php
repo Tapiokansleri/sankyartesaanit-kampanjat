@@ -71,14 +71,12 @@ class Kansleri_SA_CPT_Kampanjat {
 				'has_archive'         => false,
 				'query_var'           => true,
 				'supports'            => array( 'title', 'editor', 'revisions', 'thumbnail', 'custom-fields' ),
-				'template'            => Kansleri_SA_Landing_Template::get_editor_template(),
-				'template_lock'       => false,
 			)
 		);
 	}
 
 	/**
-	 * Pre-fill the block editor when opening a new Kampanja.
+	 * Editor settings for Kampanja posts. New posts are filled by default_content() and seed_new_post_content().
 	 *
 	 * @param array<string, mixed> $settings Editor settings.
 	 * @param WP_Post              $context  Post context.
@@ -86,10 +84,6 @@ class Kansleri_SA_CPT_Kampanjat {
 	public static function set_block_template( $settings, $context ) {
 		if ( empty( $context->post ) || self::POST_TYPE !== $context->post->post_type ) {
 			return $settings;
-		}
-
-		if ( self::is_empty_content( $context->post->post_content ) ) {
-			$settings['template'] = Kansleri_SA_Landing_Template::get_editor_template();
 		}
 
 		$settings['alignWide']      = true;
@@ -137,7 +131,7 @@ class Kansleri_SA_CPT_Kampanjat {
 		wp_update_post(
 			array(
 				'ID'           => $post_id,
-				'post_content' => Kansleri_SA_Landing_Template::get_content(),
+				'post_content' => wp_slash( Kansleri_SA_Landing_Template::get_content() ),
 			)
 		);
 
@@ -283,7 +277,7 @@ class Kansleri_SA_CPT_Kampanjat {
 		wp_update_post(
 			array(
 				'ID'           => $post_id,
-				'post_content' => Kansleri_SA_Landing_Template::get_content(),
+				'post_content' => wp_slash( Kansleri_SA_Landing_Template::get_content() ),
 			)
 		);
 

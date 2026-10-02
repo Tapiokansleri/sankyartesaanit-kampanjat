@@ -6,7 +6,7 @@ Repository: [github.com/Tapiokansleri/sankyartesaanit-kampanjat](https://github.
 
 ## Features
 
-- **Kampanjat** custom post type with auto-seeded landing template
+- **Kampanjat** custom post type; every new campaign starts from the default landing page (Hypnosé Ultra layout, see below)
 - **13 Gutenberg blocks** (sidebar editing + live server-side preview):
   - Promo banner, Hero, Feature columns, Split content, Section header
   - Product cards, Numbered features, Stat cards, Testimonials
@@ -42,9 +42,31 @@ Copy the folder into `wp-content/plugins/` and activate.
 ## Usage
 
 1. Activate the plugin.
-2. Go to **Kampanjat → Lisää uusi**.
+2. Go to **Kampanjat → Lisää uusi**. The page opens pre-filled with the default landing page: video hero, sections with booking / call buttons, certification logos and the booking calendar.
 3. Edit blocks from the sidebar — content is not edited inline in the canvas.
 4. Publish the kampanja page.
+
+The previous Factory Sale layout is still available as the block pattern **Sänkyartesaanit - Tarjouslaskeutumissivu (Factory Sale)**.
+
+### Default landing page template
+
+The default page is ordinary block markup in `templates/landing-default.html`. Media is stored as tokens so the same file works on every site:
+
+| Token | Becomes |
+|-------|---------|
+| `{{uploads}}/2026/09/file.webp` | the uploads URL of the current site |
+| `{{id:2026/09/file.webp}}` | the attachment ID of that file in the current media library |
+| `{{home}}` | the home URL of the current site |
+
+Files that are not in the current media library are hot-linked from sankyartesaanit.fi, so a new page never shows broken images. Blocks of the Spectra plugin (the logo strip) are dropped from the template when Spectra is not active.
+
+To make another page the default, build it on the site where its media lives and run:
+
+```bash
+wp kansleri-sa export-template <post_id>
+```
+
+This rewrites `templates/landing-default.html` in the active plugin folder (use `--output=<file>` to write straight into a repository clone, `--dry-run` to preview). Commit the file and release as usual.
 
 ## Updates
 
@@ -75,7 +97,7 @@ Key paths:
 | `blocks/` | Block `block.json` + `render.php` |
 | `assets/` | CSS, JS, icons |
 | `includes/` | CPT, blocks registration, helpers |
-| `templates/` | Single kampanja template |
+| `templates/` | Single kampanja template and the default landing page (`landing-default.html`) |
 
 ## License
 

@@ -100,6 +100,25 @@
 	color: var(--sa-gold-accent);
 }
 
+/* Hero with video background: light text on the darkened picture, as on the live page */
+.editor-styles-wrapper .kansleri-sa-editor-preview .sa-hero--video-bg h1,
+.editor-styles-wrapper .kansleri-sa-editor-preview .sa-hero--video-bg .sa-hero__title {
+	color: var(--sa-white) !important;
+}
+
+.editor-styles-wrapper .kansleri-sa-editor-preview .sa-hero--video-bg .sa-hero__description,
+.editor-styles-wrapper .kansleri-sa-editor-preview .sa-hero--video-bg .sa-hero__sizes,
+.editor-styles-wrapper .kansleri-sa-editor-preview .sa-hero--video-bg .sa-hero__trust-text,
+.editor-styles-wrapper .kansleri-sa-editor-preview .sa-hero--video-bg .sa-hero__price-current,
+.editor-styles-wrapper .kansleri-sa-editor-preview .sa-hero--video-bg .sa-hero__price-meta {
+	color: var(--sa-white);
+}
+
+.editor-styles-wrapper .kansleri-sa-editor-preview .sa-hero--video-bg .sa-eyebrow,
+.editor-styles-wrapper .kansleri-sa-editor-preview .sa-hero--video-bg .sa-hero__savings {
+	color: var(--sa-gold-pale);
+}
+
 .editor-styles-wrapper .kansleri-sa-editor-preview .sa-youtube-embed-wrap--horizontal {
 	aspect-ratio: 16 / 9;
 }

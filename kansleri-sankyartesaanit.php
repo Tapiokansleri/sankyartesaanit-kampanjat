@@ -3,7 +3,7 @@
  * Plugin Name: Kansleri & Sänkyartesaanit
  * Plugin URI: https://github.com/Tapiokansleri/sankyartesaanit-kampanjat
  * Description: Kampanjat-laskeutumissivut Sänkyartesaanit-lohkoilla. Luo kampanja → kaikki lohkot latautuvat automaattisesti.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Kansleri
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'KANSLERI_SA_VERSION', '1.1.0' );
+define( 'KANSLERI_SA_VERSION', '1.2.0' );
 define( 'KANSLERI_SA_PLUGIN_FILE', __FILE__ );
 define( 'KANSLERI_SA_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'KANSLERI_SA_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -27,6 +27,7 @@ require_once KANSLERI_SA_PLUGIN_DIR . 'includes/class-cpt-kampanjat.php';
 require_once KANSLERI_SA_PLUGIN_DIR . 'includes/class-prompt-schema.php';
 require_once KANSLERI_SA_PLUGIN_DIR . 'includes/class-updater.php';
 require_once KANSLERI_SA_PLUGIN_DIR . 'includes/patterns.php';
+require_once KANSLERI_SA_PLUGIN_DIR . 'includes/class-cli.php';
 
 Kansleri_Sankyartesaanit_Blocks::init();
 Kansleri_SA_CPT_Kampanjat::init();
