@@ -1366,6 +1366,122 @@
 			return null;
 		},
 	} );
+	registerBlockType( 'sankyartesaanit/booking-embed', {
+		edit: function ( props ) {
+			const attrs = props.attributes;
+			return el(
+				Fragment,
+				null,
+				el(
+					InspectorControls,
+					null,
+					el(
+						PanelBody,
+						{ title: __( 'Ajanvarauskalenteri', 'kansleri-sankyartesaanit' ), initialOpen: true },
+						textField( __( 'Yläotsikko', 'kansleri-sankyartesaanit' ), 'eyebrow', attrs, props.setAttributes ),
+						textField( __( 'Otsikko', 'kansleri-sankyartesaanit' ), 'title', attrs, props.setAttributes ),
+						textareaField( __( 'Kuvaus', 'kansleri-sankyartesaanit' ), 'description', attrs, props.setAttributes, 3 ),
+						textField(
+							__( 'Kalenterin osoite (https)', 'kansleri-sankyartesaanit' ),
+							'embedUrl',
+							attrs,
+							props.setAttributes,
+							__( 'Easybook-kalenterin upotusosoite. Vain https-osoitteet toimivat.', 'kansleri-sankyartesaanit' )
+						),
+						el( RangeControl, {
+							label: __( 'Kalenterin korkeus (px)', 'kansleri-sankyartesaanit' ),
+							value: typeof attrs.embedHeight === 'number' ? attrs.embedHeight : 640,
+							min: 360,
+							max: 1000,
+							step: 20,
+							onChange: function ( value ) {
+								props.setAttributes( { embedHeight: typeof value === 'number' ? value : 640 } );
+							},
+						} ),
+						textField(
+							__( 'Ankkuri', 'kansleri-sankyartesaanit' ),
+							'anchorId',
+							attrs,
+							props.setAttributes,
+							__( 'Sivun CTA-painikkeet ohjaavat tähän, esim. #varaa-aika. Älä muuta ilman, että päivität painikkeiden linkit.', 'kansleri-sankyartesaanit' )
+						),
+						textareaField( __( 'Soittoteksti', 'kansleri-sankyartesaanit' ), 'callLead', attrs, props.setAttributes, 2 ),
+						textField( __( 'Soittopainike', 'kansleri-sankyartesaanit' ), 'callText', attrs, props.setAttributes ),
+						textField( __( 'Soittolinkki', 'kansleri-sankyartesaanit' ), 'callUrl', attrs, props.setAttributes ),
+						selectField(
+							__( 'Teema', 'kansleri-sankyartesaanit' ),
+							'theme',
+							attrs,
+							props.setAttributes,
+							[
+								{ label: 'Hiekka', value: 'sand' },
+								{ label: 'Lämmin', value: 'warm' },
+								{ label: 'Vaalea', value: 'light' },
+								{ label: 'Tumma', value: 'dark' },
+							]
+						)
+					)
+				),
+				preview( 'sankyartesaanit/booking-embed', attrs )
+			);
+		},
+		save: function () {
+			return null;
+		},
+	} );
+
+	// Optional CTA row (primary + secondary button) for every section block.
+	const CTA_BLOCK_SLUGS = [
+		'section-header',
+		'feature-columns',
+		'split-content',
+		'product-cards',
+		'numbered-features',
+		'stat-cards',
+		'testimonials',
+		'location-section',
+		'faq',
+	];
+
+	window.wp.hooks.addFilter(
+		'editor.BlockEdit',
+		'kansleri-sa/cta-controls',
+		window.wp.compose.createHigherOrderComponent( function ( BlockEdit ) {
+			return function ( props ) {
+				const name = props.name || '';
+
+				if ( name.indexOf( 'sankyartesaanit/' ) !== 0 || CTA_BLOCK_SLUGS.indexOf( name.replace( 'sankyartesaanit/', '' ) ) === -1 ) {
+					return el( BlockEdit, props );
+				}
+
+				const attrs = props.attributes;
+
+				return el(
+					Fragment,
+					null,
+					el( BlockEdit, props ),
+					el(
+						InspectorControls,
+						null,
+						el(
+							PanelBody,
+							{ title: __( 'Toimintakutsu (CTA-rivi)', 'kansleri-sankyartesaanit' ), initialOpen: !! attrs.ctaText },
+							textField(
+								__( 'Ensisijainen painike', 'kansleri-sankyartesaanit' ),
+								'ctaText',
+								attrs,
+								props.setAttributes,
+								__( 'Esim. Varaa henkilökohtainen palveluaika. Tyhjä teksti = ei CTA-riviä.', 'kansleri-sankyartesaanit' )
+							),
+							textField( __( 'Ensisijainen linkki', 'kansleri-sankyartesaanit' ), 'ctaUrl', attrs, props.setAttributes ),
+							textField( __( 'Toissijainen painike', 'kansleri-sankyartesaanit' ), 'ctaSecondaryText', attrs, props.setAttributes ),
+							textField( __( 'Toissijainen linkki', 'kansleri-sankyartesaanit' ), 'ctaSecondaryUrl', attrs, props.setAttributes )
+						)
+					)
+				);
+			};
+		}, 'withKansleriCtaControls' )
+	);
 } )(
 	window.wp.blocks,
 	window.wp.element,

@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/booking-embed",
+	"title": "Sänkyartesaanit - Ajanvarauskalenteri",
+	"category": "sankyartesaanit",
+	"icon": "calendar-alt",
+	"description": "Upotettu ajanvarauskalenteri (Easybook) otsikolla ja soittopainikkeella. Sivun CTA-painikkeet ohjaavat tähän ankkurin (#varaa-aika) kautta.",
+	"keywords": ["ajanvaraus", "kalenteri", "booking", "varaa aika", "cta"],
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"anchorId": { "type": "string", "default": "varaa-aika" },
+		"eyebrow": { "type": "string", "default": "VARAA AIKA" },
+		"title": { "type": "string", "default": "Varaa henkilökohtainen palveluaika" },
+		"description": { "type": "string", "default": "Valitse sopiva aika Lahden tehtaanmyymälään tai Helsingin myymälään. Saat asiantuntijan avuksesi ja voit kokeilla sänkyjä rauhassa." },
+		"embedUrl": { "type": "string", "default": "https://app.easybook.fi/kalenteri/4a9e462c-0fa4-42ca-97fb-3d889c8df412/T5lThDYC1WfJPd7QgARx" },
+		"embedHeight": { "type": "number", "default": 640 },
+		"callLead": { "type": "string", "default": "Mieluummin puhelimitse? Palvelemme joka päivä klo 10–20." },
+		"callText": { "type": "string", "default": "Soita 02 546 4065" },
+		"callUrl": { "type": "string", "default": "tel:025464065" },
+		"theme": { "type": "string", "default": "sand" }
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": false
+	},
+	"style": ["kansleri-sa-frontend"],
+	"editorScript": "kansleri-sa-editor"
+}

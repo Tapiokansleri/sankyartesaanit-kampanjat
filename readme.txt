@@ -15,7 +15,7 @@ Kampanjat-laskeutumissivut Sänkyartesaanit-lohkoilla. Luo kampanja → kaikki l
 WordPress plugin for Sänkyartesaanit campaign landing pages. Create a Kampanja post and the full landing page block structure is seeded automatically.
 
 * Kampanjat custom post type with auto-seeded landing template
-* 12 Gutenberg blocks (sidebar editing + live server-side preview)
+* 13 Gutenberg blocks (sidebar editing + live server-side preview)
 * Font Awesome icon picker on feature columns and stat cards
 * Full-width kampanja layout (Astra-compatible)
 * Mobile-optimised spacing and typography
@@ -31,6 +31,7 @@ WordPress plugin for Sänkyartesaanit campaign landing pages. Create a Kampanja 
 = 1.1.0 =
 * Hero video background option: silent looping mp4/webm with overlay, poster fallback, pause button and reduced-motion support
 * Hero bonus list and trust points moved into a details row under headline and media
+* Booking calendar block (embedded Easybook calendar, anchor #varaa-aika) and an optional CTA row (primary + secondary button) for every section block
 * Visual refinement: section spacing, mobile type sizes, list bullets, card shadows (fonts, colours and buttons unchanged)
 * A single product card is centered
 

@@ -1146,6 +1146,111 @@
 	color: var(--sa-gold-pale);
 }
 
+/* CTA row: optional primary + secondary button at the end of any section block */
+.sa-cta-row {
+	margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.sa-cta-row__buttons {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 0.85rem;
+}
+
+.sa-cta-row--inline {
+	margin-top: 2rem;
+}
+
+.sa-cta-row--inline .sa-cta-row__buttons,
+.sa-section-header--align-left .sa-cta-row__buttons {
+	justify-content: flex-start;
+}
+
+/* Booking section: embedded calendar, the target of every "Varaa henkilökohtainen palveluaika" button.
+   (The Astra theme smooth-scrolls to anchors itself; scroll-margin-top keeps direct links clear of the sticky header.) */
+.sa-booking {
+	padding: var(--sa-section-y) 10%;
+	scroll-margin-top: 7rem;
+}
+
+.sa-booking--sand {
+	background: var(--sa-bg-sand);
+}
+
+.sa-booking--warm {
+	background: var(--sa-bg-warm);
+}
+
+.sa-booking--light {
+	background: transparent;
+}
+
+.sa-booking--dark {
+	background: var(--sa-dark);
+	color: var(--sa-white);
+}
+
+.sa-booking__header {
+	max-width: 46rem;
+	margin-inline: auto;
+	text-align: center;
+}
+
+.sa-booking .sa-booking__title {
+	margin: 0 0 1.1rem;
+	font-size: clamp(1.8rem, 3vw, 2.4rem);
+	line-height: 1.2;
+	color: var(--sa-dark);
+}
+
+.sa-booking__description {
+	margin: 0;
+	font-size: 1.05em;
+	line-height: 1.7;
+}
+
+.sa-booking--dark .sa-eyebrow {
+	color: var(--sa-gold-pale);
+}
+
+.sa-booking--dark .sa-booking__title,
+.sa-booking--dark .sa-booking__description,
+.sa-booking--dark .sa-booking__call-lead {
+	color: var(--sa-white);
+}
+
+.sa-booking__frame {
+	max-width: 22.5rem;
+	margin: clamp(2rem, 4vw, 3rem) auto 0;
+	background: var(--sa-white);
+	box-shadow: 0 14px 34px -24px rgba(30, 44, 55, 0.3);
+}
+
+.sa-booking__iframe {
+	display: block;
+	width: 100%;
+	max-width: none;
+	border: 0;
+}
+
+.sa-booking__placeholder {
+	margin: 0;
+	padding: 3rem 1.5rem;
+	text-align: center;
+	opacity: 0.7;
+}
+
+.sa-booking__call {
+	margin-top: 2rem;
+	text-align: center;
+}
+
+.sa-booking__call-lead {
+	margin: 0 0 1rem;
+}
+
 /* Kampanja single page — full-width, no theme padding */
 .kansleri-sa-landing .site-content,
 .kansleri-sa-landing #primary,
@@ -1227,6 +1332,39 @@
 	.sa-stat-cards,
 	.sa-testimonials {
 		padding: 0 1.25rem 3rem;
+	}
+
+	.sa-booking {
+		padding: 3rem 1.25rem;
+	}
+
+	.sa-booking .sa-booking__title {
+		margin-bottom: 0.85rem;
+		font-size: 1.6rem;
+		line-height: 1.22;
+	}
+
+	.sa-booking__description {
+		font-size: 0.95rem;
+		line-height: 1.65;
+	}
+
+	.sa-booking__frame {
+		max-width: 100%;
+	}
+
+	.sa-cta-row {
+		margin-top: 1.75rem;
+	}
+
+	.sa-cta-row__buttons {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0.6rem;
+	}
+
+	.sa-cta-row__buttons .sa-btn {
+		width: 100%;
 	}
 
 	.sa-section-header:has(+ :is(.sa-product-cards, .sa-stat-cards, .sa-testimonials)) {

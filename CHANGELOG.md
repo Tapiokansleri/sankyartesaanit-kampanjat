@@ -9,6 +9,8 @@ All notable changes to this project are documented here.
 - Hero **video background** option (Hero → Media → "Videotausta"): a video file (mp4 / webm) from the media library plays silently and loops behind the hero text. Includes an adjustable darkening overlay, a poster image fallback, a pause / play button, pausing while the hero is off screen, and a still image for visitors who prefer reduced motion
 - Hero **details row**: the bonus list and trust points now sit in a calm row under the headline and media instead of squeezing the text column
 - A single product card is now centered instead of sitting in the left half
+- **Booking calendar block** ("Sänkyartesaanit - Ajanvarauskalenteri"): embeds the Easybook calendar (https iframe, adjustable height) with a heading, a call button and the anchor `#varaa-aika`; in the editor preview it shows a placeholder instead of loading the calendar
+- **CTA row for every section block** (Toimintakutsu in the sidebar): a primary button (e.g. "Varaa henkilökohtainen palveluaika" linking to `#varaa-aika`) and a secondary one (e.g. "Soita"), shown at the end of the section; works on section header, feature columns, split content, product cards, numbered features, stat cards, testimonials, location section and FAQ
 
 ### Changed
 

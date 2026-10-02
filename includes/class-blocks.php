@@ -20,6 +20,29 @@ class Kansleri_Sankyartesaanit_Blocks {
 		'location-section',
 		'faq',
 		'cta-section',
+		'booking-embed',
+	);
+
+	/**
+	 * Section blocks that can carry an optional CTA row (primary + secondary button).
+	 */
+	const CTA_BLOCKS = array(
+		'section-header',
+		'feature-columns',
+		'split-content',
+		'product-cards',
+		'numbered-features',
+		'stat-cards',
+		'testimonials',
+		'location-section',
+		'faq',
+	);
+
+	/**
+	 * CTA blocks that sit on a dark background (secondary button gets the ghost style).
+	 */
+	const DARK_BLOCKS = array(
+		'numbered-features',
 	);
 
 	public static function init() {
@@ -27,6 +50,85 @@ class Kansleri_Sankyartesaanit_Blocks {
 		add_action( 'init', array( __CLASS__, 'register_blocks' ) );
 		add_action( 'enqueue_block_editor_assets', array( __CLASS__, 'enqueue_editor_assets' ) );
 		add_filter( 'block_categories_all', array( __CLASS__, 'register_category' ), 10, 2 );
+		add_filter( 'register_block_type_args', array( __CLASS__, 'add_cta_attributes' ), 10, 2 );
+	}
+
+	/**
+	 * Give every section block the optional CTA row attributes.
+	 *
+	 * @param array  $args       Block type arguments.
+	 * @param string $block_type Block type name.
+	 * @return array
+	 */
+	public static function add_cta_attributes( $args, $block_type ) {
+		if ( 0 !== strpos( (string) $block_type, 'sankyartesaanit/' ) ) {
+			return $args;
+		}
+
+		if ( ! in_array( substr( $block_type, strlen( 'sankyartesaanit/' ) ), self::CTA_BLOCKS, true ) ) {
+			return $args;
+		}
+
+		$args['attributes'] = array_merge(
+			isset( $args['attributes'] ) && is_array( $args['attributes'] ) ? $args['attributes'] : array(),
+			array(
+				'ctaText'          => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'ctaUrl'           => array(
+					'type'    => 'string',
+					'default' => '#varaa-aika',
+				),
+				'ctaSecondaryText' => array(
+					'type'    => 'string',
+					'default' => '',
+				),
+				'ctaSecondaryUrl'  => array(
+					'type'    => 'string',
+					'default' => 'tel:025464065',
+				),
+			)
+		);
+
+		return $args;
+	}
+
+	/**
+	 * Add the CTA row to a rendered section block (inside the section, so it shares its background).
+	 *
+	 * @param string $block      Block slug.
+	 * @param array  $attributes Block attributes.
+	 * @param string $html       Rendered block HTML.
+	 * @return string
+	 */
+	public static function maybe_append_cta( $block, $attributes, $html ) {
+		if ( ! in_array( $block, self::CTA_BLOCKS, true ) || empty( $attributes['ctaText'] ) ) {
+			return $html;
+		}
+
+		// Split content: the CTA row belongs at the end of the text column, not under the image.
+		if ( 'split-content' === $block ) {
+			$row   = kansleri_sa_get_cta_row_html( $attributes, 'inline' );
+			$media = strpos( $html, '<div class="sa-split-content__media">' );
+
+			if ( false !== $media ) {
+				$end = strrpos( substr( $html, 0, $media ), '</div>' );
+
+				if ( false !== $end ) {
+					return substr( $html, 0, $end ) . $row . substr( $html, $end );
+				}
+			}
+		}
+
+		$row = kansleri_sa_get_cta_row_html( $attributes, 'section', in_array( $block, self::DARK_BLOCKS, true ) );
+		$end = strrpos( $html, '</section>' );
+
+		if ( false === $end ) {
+			return $html . $row;
+		}
+
+		return substr( $html, 0, $end ) . $row . substr( $html, $end );
 	}
 
 	public static function register_assets() {
@@ -113,7 +215,9 @@ class Kansleri_Sankyartesaanit_Blocks {
 
 		ob_start();
 		include $file;
-		return ob_get_clean();
+		$html = ob_get_clean();
+
+		return self::maybe_append_cta( $block, $attributes, $html );
 	}
 
 	public static function get_fa_icons() {
@@ -178,6 +282,8 @@ class Kansleri_Sankyartesaanit_Blocks {
 				'wp-components',
 				'wp-block-editor',
 				'wp-i18n',
+				'wp-hooks',
+				'wp-compose',
 				'wp-server-side-render',
 				'kansleri-sa-fa-picker',
 			),

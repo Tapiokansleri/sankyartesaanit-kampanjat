@@ -33,7 +33,8 @@ class Kansleri_SA_Prompt_Schema {
 				'Kuvat: käytä imageUrl (täysi URL) ja imageAlt. imageId voi olla 0 jos URL on annettu.',
 				'Font Awesome -ikonit: muodossa "fa-solid fa-nimi" TAI erikseen icon + iconStyle (esim. gem, solid).',
 				'FAQ-vastauksissa voi käyttää HTML:ää (<p>, <strong>, <ul><li>).',
-				'Puhelinlinkit: tel:025464065. Sisäiset linkit: /ajanvaraus/',
+				'Puhelinlinkit: tel:025464065. Sisäiset linkit: /ajanvaraus/. Sivun sisäinen ankkuri ajanvarauskalenteriin: #varaa-aika.',
+				'Jokaiseen osiolohkoon (section-header, feature-columns, split-content, product-cards, numbered-features, stat-cards, testimonials, location-section, faq) voi lisätä CTA-rivin kentillä ctaText (esim. "Varaa henkilökohtainen palveluaika"), ctaUrl (esim. "#varaa-aika"), ctaSecondaryText (esim. "Soita 02 546 4065") ja ctaSecondaryUrl ("tel:025464065"). Tyhjä ctaText = ei CTA-riviä.',
 			)
 		);
 	}
@@ -181,6 +182,19 @@ class Kansleri_SA_Prompt_Schema {
 					'primaryButtonUrl / ctaPrimaryLink'   => 'Ensisijainen linkki',
 					'secondaryButtonText / ctaSecondaryLabel' => 'Toissijainen painike',
 					'secondaryButtonUrl / ctaSecondaryLink'   => 'Toissijainen linkki',
+				),
+			),
+			'sankyartesaanit/booking-embed'     => array(
+				'title'  => 'Ajanvarauskalenteri — upotettu kalenteri (Easybook), ankkuri #varaa-aika',
+				'fields' => array(
+					'eyebrow'     => 'Yläotsikko (string)',
+					'title'       => 'Otsikko (string)',
+					'description' => 'Kuvaus (string)',
+					'embedUrl'    => 'Kalenterin https-upotusosoite',
+					'embedHeight' => 'Kalenterin korkeus pikseleinä (360–1200, oletus 640)',
+					'anchorId'    => 'Ankkuri ilman #-merkkiä (oletus varaa-aika)',
+					'callLead, callText, callUrl' => 'Soittorivi kalenterin alla',
+					'theme'       => '"sand" | "warm" | "light" | "dark"',
 				),
 			),
 		);

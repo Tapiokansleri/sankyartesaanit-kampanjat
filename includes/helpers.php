@@ -418,17 +418,20 @@ function kansleri_sa_get_hero_trust_items( $attributes ) {
 	);
 }
 
-function kansleri_sa_wrapper_attrs( $attributes, $class, $block = null ) {
-	$extra = $attributes['className'] ?? '';
-	$full  = trim( $class . ( $extra ? ' ' . $extra : '' ) );
+function kansleri_sa_wrapper_attrs( $attributes, $class, $block = null, $extra_attrs = array() ) {
+	$extra_class = $attributes['className'] ?? '';
+	$full        = trim( $class . ( $extra_class ? ' ' . $extra_class : '' ) );
 
 	if ( empty( $attributes['align'] ) ) {
 		$full .= ' alignfull';
 	}
 
 	return get_block_wrapper_attributes(
-		array(
-			'class' => $full,
+		array_merge(
+			array(
+				'class' => $full,
+			),
+			$extra_attrs
 		),
 		$block
 	);
@@ -437,11 +440,46 @@ function kansleri_sa_wrapper_attrs( $attributes, $class, $block = null ) {
 /**
  * Output block wrapper attributes (escaped by WordPress core).
  *
- * @param array         $attributes Block attributes.
- * @param string        $class      Base CSS class.
- * @param WP_Block|null $block      Block instance.
+ * @param array         $attributes  Block attributes.
+ * @param string        $class       Base CSS class.
+ * @param WP_Block|null $block       Block instance.
+ * @param array         $extra_attrs Extra HTML attributes (e.g. id).
  */
-function kansleri_sa_print_wrapper_attrs( $attributes, $class, $block = null ) {
+function kansleri_sa_print_wrapper_attrs( $attributes, $class, $block = null, $extra_attrs = array() ) {
 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in get_block_wrapper_attributes().
-	echo kansleri_sa_wrapper_attrs( $attributes, $class, $block );
+	echo kansleri_sa_wrapper_attrs( $attributes, $class, $block, $extra_attrs );
+}
+
+/**
+ * Build the optional call-to-action row that can be added to any section block:
+ * a primary button (e.g. "Varaa henkilökohtainen palveluaika") and a secondary one (e.g. "Soita").
+ *
+ * @param array  $attributes Block attributes (ctaText, ctaUrl, ctaSecondaryText, ctaSecondaryUrl).
+ * @param string $variant    "section" (full-width row at the end of the section) or "inline" (inside a text column).
+ * @param bool   $dark       True on dark backgrounds, where the secondary button uses the ghost style.
+ * @return string HTML, or an empty string when no CTA text is set.
+ */
+function kansleri_sa_get_cta_row_html( $attributes, $variant = 'section', $dark = false ) {
+	$primary_text = trim( (string) ( $attributes['ctaText'] ?? '' ) );
+
+	if ( '' === $primary_text ) {
+		return '';
+	}
+
+	$primary_url = trim( (string) ( $attributes['ctaUrl'] ?? '' ) );
+
+	ob_start();
+	kansleri_sa_render_button( '' !== $primary_url ? $primary_url : '#varaa-aika', $primary_text, 'sa-btn sa-btn--primary' );
+	kansleri_sa_render_button(
+		(string) ( $attributes['ctaSecondaryUrl'] ?? '' ),
+		trim( (string) ( $attributes['ctaSecondaryText'] ?? '' ) ),
+		$dark ? 'sa-btn sa-btn--ghost' : 'sa-btn sa-btn--outline'
+	);
+	$buttons = ob_get_clean();
+
+	if ( 'inline' === $variant ) {
+		return '<div class="sa-cta-row sa-cta-row--inline"><div class="sa-cta-row__buttons">' . $buttons . '</div></div>';
+	}
+
+	return '<div class="sa-container sa-cta-row"><div class="sa-cta-row__buttons">' . $buttons . '</div></div>';
 }

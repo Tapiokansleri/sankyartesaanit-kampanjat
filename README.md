@@ -7,11 +7,12 @@ Repository: [github.com/Tapiokansleri/sankyartesaanit-kampanjat](https://github.
 ## Features
 
 - **Kampanjat** custom post type with auto-seeded landing template
-- **12 Gutenberg blocks** (sidebar editing + live server-side preview):
+- **13 Gutenberg blocks** (sidebar editing + live server-side preview):
   - Promo banner, Hero, Feature columns, Split content, Section header
   - Product cards, Numbered features, Stat cards, Testimonials
   - Location section, FAQ, CTA section
 - Font Awesome icon picker on feature columns and stat cards
+- **Booking calendar** block (embedded Easybook calendar) and an optional **CTA row** on every section block (e.g. "Varaa henkilökohtainen palveluaika" + "Soita")
 - Hero with image, YouTube video or a **silent looping video background** (mp4 / webm, overlay, pause button, reduced-motion fallback)
 - Full-width kampanja layout (Astra-compatible)
 - Mobile-optimised spacing and typography
