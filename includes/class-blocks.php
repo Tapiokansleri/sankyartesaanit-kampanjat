@@ -51,6 +51,14 @@ class Kansleri_Sankyartesaanit_Blocks {
 			KANSLERI_SA_VERSION,
 			true
 		);
+
+		wp_register_script(
+			'kansleri-sa-hero-video',
+			KANSLERI_SA_PLUGIN_URL . 'assets/hero-video.js',
+			array(),
+			KANSLERI_SA_VERSION,
+			true
+		);
 	}
 
 	public static function register_category( $categories ) {
@@ -97,6 +105,10 @@ class Kansleri_Sankyartesaanit_Blocks {
 
 		if ( 'faq' === $block && ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
 			wp_enqueue_script( 'kansleri-sa-faq' );
+		}
+
+		if ( 'hero' === $block && ! empty( $attributes['videoBackground'] ) && ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+			wp_enqueue_script( 'kansleri-sa-hero-video' );
 		}
 
 		ob_start();

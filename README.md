@@ -12,6 +12,7 @@ Repository: [github.com/Tapiokansleri/sankyartesaanit-kampanjat](https://github.
   - Product cards, Numbered features, Stat cards, Testimonials
   - Location section, FAQ, CTA section
 - Font Awesome icon picker on feature columns and stat cards
+- Hero with image, YouTube video or a **silent looping video background** (mp4 / webm, overlay, pause button, reduced-motion fallback)
 - Full-width kampanja layout (Astra-compatible)
 - Mobile-optimised spacing and typography
 

@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented here.
 
+## [1.1.0] - 2026-10-02
+
+### Added
+
+- Hero **video background** option (Hero → Media → "Videotausta"): a video file (mp4 / webm) from the media library plays silently and loops behind the hero text. Includes an adjustable darkening overlay, a poster image fallback, a pause / play button, pausing while the hero is off screen, and a still image for visitors who prefer reduced motion
+- Hero **details row**: the bonus list and trust points now sit in a calm row under the headline and media instead of squeezing the text column
+- A single product card is now centered instead of sitting in the left half
+
+### Changed
+
+- Visual refinement of all blocks: consistent section spacing, balanced headings, calmer hero layout, readable type sizes on mobile, brand-gold list bullets, soft card shadows. Fonts, colours and button styles are unchanged
+- Split-content eyebrow no longer inherits paragraph spacing
+
+[1.1.0]: https://github.com/Tapiokansleri/sankyartesaanit-kampanjat/releases/tag/v1.1.0
+
 ## [1.0.5] - 2026-09-08
 
 ### Added

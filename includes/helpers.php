@@ -251,6 +251,33 @@ function kansleri_sa_render_youtube_embed( $url, $class = 'sa-youtube-embed', $t
 }
 
 /**
+ * Render a silent, looping video file used as a decorative hero background.
+ *
+ * The video is purely decorative (hidden from assistive technology, not focusable).
+ * Playback is controlled by the pause button in the hero and by hero-video.js.
+ *
+ * @param string $url    Video file URL (mp4 / webm).
+ * @param string $poster Optional poster image URL shown before the video plays.
+ */
+function kansleri_sa_render_video_background( $url, $poster = '' ) {
+	$url = esc_url( $url );
+
+	if ( ! $url ) {
+		return;
+	}
+
+	$filetype = wp_check_filetype( (string) wp_parse_url( $url, PHP_URL_PATH ) );
+	$mime     = ! empty( $filetype['type'] ) && 0 === strpos( $filetype['type'], 'video/' ) ? $filetype['type'] : 'video/mp4';
+
+	printf(
+		'<video class="sa-hero__bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1" disablepictureinpicture disableremoteplayback%1$s><source src="%2$s" type="%3$s"></video>',
+		$poster ? ' poster="' . esc_url( $poster ) . '"' : '',
+		esc_url( $url ),
+		esc_attr( $mime )
+	);
+}
+
+/**
  * Render hero media (image or YouTube video).
  *
  * @param array $attrs Block attributes.

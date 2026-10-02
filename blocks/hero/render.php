@@ -10,16 +10,36 @@ if ( 'youtube' === $media_type ) {
 	$youtube_class = ' sa-hero--youtube-' . kansleri_sa_get_youtube_orientation( $attributes );
 }
 
+// Video file as a silent, looping background. Without a video URL the normal hero is shown.
+$is_editor_preview = defined( 'REST_REQUEST' ) && REST_REQUEST;
+$video_bg_url      = trim( (string) ( $attributes['videoBgUrl'] ?? '' ) );
+$video_bg          = ! empty( $attributes['videoBackground'] ) && '' !== $video_bg_url;
+$video_overlay     = max( 0, min( 90, (int) ( $attributes['videoOverlay'] ?? 55 ) ) ) / 100;
+$poster_url        = $attributes['imageUrl'] ?? '';
+
 $class = sprintf(
-	'sa-hero alignfull sa-hero--image-%s sa-hero--valign-%s sa-hero--media-%s%s',
+	'sa-hero alignfull sa-hero--image-%s sa-hero--valign-%s sa-hero--media-%s%s%s',
 	$position,
 	$vertical_align,
 	$media_type,
-	$youtube_class
+	$youtube_class,
+	$video_bg ? ' sa-hero--video-bg' : ''
 );
 $bonus_items = $attributes['bonusItems'] ?? array();
+$trust_items = kansleri_sa_get_hero_trust_items( $attributes );
+$has_bonus   = ! empty( $attributes['bonusTitle'] ) || ! empty( $bonus_items );
 ?>
 <section <?php kansleri_sa_print_wrapper_attrs( $attributes, $class, $block_instance ); ?>>
+	<?php if ( $video_bg ) : ?>
+		<div class="sa-hero__bg" aria-hidden="true"<?php echo $poster_url ? ' style="' . esc_attr( 'background-image:url(' . esc_url_raw( $poster_url ) . ')' ) . '"' : ''; ?>>
+			<?php
+			if ( ! $is_editor_preview ) {
+				kansleri_sa_render_video_background( $video_bg_url, $poster_url );
+			}
+			?>
+		</div>
+		<div class="sa-hero__overlay" aria-hidden="true" style="<?php echo esc_attr( '--sa-hero-overlay:' . number_format( $video_overlay, 2, '.', '' ) ); ?>"></div>
+	<?php endif; ?>
 	<div class="sa-container sa-hero__grid">
 		<div class="sa-hero__content">
 			<?php if ( ! empty( $attributes['eyebrow'] ) ) : ?>
@@ -51,7 +71,33 @@ $bonus_items = $attributes['bonusItems'] ?? array();
 			<?php if ( ! empty( $attributes['sizes'] ) ) : ?>
 				<p class="sa-hero__sizes"><?php kansleri_sa_esc_text( $attributes['sizes'] ); ?></p>
 			<?php endif; ?>
-			<?php if ( ! empty( $attributes['bonusTitle'] ) || ! empty( $bonus_items ) ) : ?>
+			<div class="sa-hero__buttons">
+				<?php
+				kansleri_sa_render_button(
+					$attributes['primaryButtonUrl'] ?? '#',
+					$attributes['primaryButtonText'] ?? '',
+					'sa-btn sa-btn--primary'
+				);
+				kansleri_sa_render_button(
+					$attributes['secondaryButtonUrl'] ?? '#',
+					$attributes['secondaryButtonText'] ?? '',
+					'sa-btn sa-btn--outline'
+				);
+				?>
+			</div>
+		</div>
+		<?php if ( ! $video_bg ) : ?>
+			<div class="sa-hero__media">
+				<?php if ( ! empty( $attributes['scarcityBadge'] ) ) : ?>
+					<span class="sa-hero__badge"><?php kansleri_sa_esc_text( $attributes['scarcityBadge'] ); ?></span>
+				<?php endif; ?>
+				<?php kansleri_sa_render_hero_media( $attributes ); ?>
+			</div>
+		<?php endif; ?>
+	</div>
+	<?php if ( $has_bonus || ! empty( $trust_items ) ) : ?>
+		<div class="sa-container sa-hero__details">
+			<?php if ( $has_bonus ) : ?>
 				<div class="sa-hero__bonus">
 					<?php if ( ! empty( $attributes['bonusTitle'] ) ) : ?>
 						<p class="sa-hero__bonus-title"><strong><?php kansleri_sa_esc_text( $attributes['bonusTitle'] ); ?></strong></p>
@@ -67,24 +113,7 @@ $bonus_items = $attributes['bonusItems'] ?? array();
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
-			<div class="sa-hero__buttons">
-				<?php
-				kansleri_sa_render_button(
-					$attributes['primaryButtonUrl'] ?? '#',
-					$attributes['primaryButtonText'] ?? '',
-					'sa-btn sa-btn--primary'
-				);
-				kansleri_sa_render_button(
-					$attributes['secondaryButtonUrl'] ?? '#',
-					$attributes['secondaryButtonText'] ?? '',
-					'sa-btn sa-btn--outline'
-				);
-				?>
-			</div>
-			<?php
-			$trust_items = kansleri_sa_get_hero_trust_items( $attributes );
-			if ( ! empty( $trust_items ) ) :
-				?>
+			<?php if ( ! empty( $trust_items ) ) : ?>
 				<ul class="sa-hero__trust-list">
 					<?php foreach ( $trust_items as $trust_item ) : ?>
 						<li class="sa-hero__trust-item">
@@ -95,11 +124,17 @@ $bonus_items = $attributes['bonusItems'] ?? array();
 				</ul>
 			<?php endif; ?>
 		</div>
-		<div class="sa-hero__media">
-			<?php if ( ! empty( $attributes['scarcityBadge'] ) ) : ?>
-				<span class="sa-hero__badge"><?php kansleri_sa_esc_text( $attributes['scarcityBadge'] ); ?></span>
-			<?php endif; ?>
-			<?php kansleri_sa_render_hero_media( $attributes ); ?>
-		</div>
-	</div>
+	<?php endif; ?>
+	<?php if ( $video_bg && ! $is_editor_preview ) : ?>
+		<button
+			type="button"
+			class="sa-hero__video-toggle"
+			aria-pressed="false"
+			aria-label="<?php esc_attr_e( 'Pysäytä taustavideo', 'kansleri-sankyartesaanit' ); ?>"
+			data-label-pause="<?php esc_attr_e( 'Pysäytä taustavideo', 'kansleri-sankyartesaanit' ); ?>"
+			data-label-play="<?php esc_attr_e( 'Toista taustavideo', 'kansleri-sankyartesaanit' ); ?>"
+		>
+			<span class="sa-hero__video-toggle-icon" aria-hidden="true"></span>
+		</button>
+	<?php endif; ?>
 </section>

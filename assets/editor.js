@@ -8,6 +8,7 @@
 		SelectControl,
 		Button,
 		ToggleControl,
+		RangeControl,
 	} = components;
 	const { InspectorControls, MediaUpload, MediaUploadCheck, useBlockProps, RichText } = blockEditor;
 	const ServerSideRender = serverSideRender;
@@ -214,6 +215,69 @@
 					setAttributes( { videoMuted: value } );
 				},
 			} )
+		);
+	}
+
+	function backgroundVideoField( attributes, setAttributes ) {
+		const videoUrl = attributes.videoBgUrl || '';
+		const videoId = attributes.videoBgId || 0;
+
+		return el(
+			'div',
+			{ className: 'sa-editor-video-field' },
+			el( 'p', { className: 'components-base-control__label' }, __( 'Taustavideo (mp4 tai webm)', 'kansleri-sankyartesaanit' ) ),
+			videoUrl
+				? el( 'video', {
+						src: videoUrl,
+						controls: true,
+						muted: true,
+						style: { maxWidth: '100%', marginBottom: '8px' },
+				  } )
+				: null,
+			el(
+				MediaUploadCheck,
+				null,
+				el( MediaUpload, {
+					onSelect: function ( media ) {
+						setAttributes( {
+							videoBgId: media.id,
+							videoBgUrl: media.url,
+						} );
+					},
+					allowedTypes: [ 'video' ],
+					value: videoId,
+					render: function ( obj ) {
+						return el(
+							Button,
+							{ variant: 'secondary', onClick: obj.open },
+							videoUrl ? __( 'Vaihda video', 'kansleri-sankyartesaanit' ) : __( 'Valitse video', 'kansleri-sankyartesaanit' )
+						);
+					},
+				} )
+			),
+			textField(
+				__( 'Videon URL', 'kansleri-sankyartesaanit' ),
+				'videoBgUrl',
+				attributes,
+				setAttributes,
+				__(
+					'Valitse video mediakirjastosta tai liitä suora mp4-osoite. Vinkki: lyhyt, mykistetty 1080p-silmukka alle 8 Mt:n tiedostona toimii parhaiten.',
+					'kansleri-sankyartesaanit'
+				)
+			),
+			videoUrl
+				? el(
+						Button,
+						{
+							isDestructive: true,
+							variant: 'link',
+							onClick: function () {
+								setAttributes( { videoBgId: 0, videoBgUrl: '' } );
+							},
+						},
+						__( 'Poista video', 'kansleri-sankyartesaanit' )
+				  )
+				: null
 		);
 	}
 
@@ -733,6 +797,8 @@
 	registerBlockType( 'sankyartesaanit/hero', {
 		edit: function ( props ) {
 			const attrs = props.attributes;
+			const isYoutube = ( attrs.mediaType || 'image' ) === 'youtube';
+			const videoBackground = !! attrs.videoBackground;
 			return el(
 				Fragment,
 				null,
@@ -791,39 +857,80 @@
 					el(
 						PanelBody,
 						{ title: __( 'Media', 'kansleri-sankyartesaanit' ) },
-						selectField(
-							__( 'Median tyyppi', 'kansleri-sankyartesaanit' ),
-							'mediaType',
-							attrs,
-							props.setAttributes,
-							[
-								{ label: 'Kuva', value: 'image' },
-								{ label: 'YouTube-video', value: 'youtube' },
-							]
-						),
-						( attrs.mediaType || 'image' ) === 'youtube'
+						el( ToggleControl, {
+							label: __( 'Videotausta', 'kansleri-sankyartesaanit' ),
+							checked: videoBackground,
+							help: __(
+								'Video toistuu hiljaa ja silmukkana hero-osion taustalla ja teksti näkyy sen päällä.',
+								'kansleri-sankyartesaanit'
+							),
+							onChange: function ( value ) {
+								props.setAttributes( { videoBackground: value } );
+							},
+						} ),
+						videoBackground ? backgroundVideoField( attrs, props.setAttributes ) : null,
+						videoBackground
+							? el( RangeControl, {
+									label: __( 'Taustan tummennus (%)', 'kansleri-sankyartesaanit' ),
+									help: __( 'Tummentaa videota, jotta teksti pysyy luettavana.', 'kansleri-sankyartesaanit' ),
+									value: typeof attrs.videoOverlay === 'number' ? attrs.videoOverlay : 55,
+									min: 0,
+									max: 90,
+									step: 5,
+									onChange: function ( value ) {
+										props.setAttributes( { videoOverlay: typeof value === 'number' ? value : 55 } );
+									},
+							  } )
+							: null,
+						videoBackground
+							? imageField(
+									__( 'Varakuva (näkyy ennen videota ja jos video ei toistu)', 'kansleri-sankyartesaanit' ),
+									attrs,
+									props.setAttributes
+							  )
+							: null,
+						videoBackground
+							? null
+							: selectField(
+									__( 'Median tyyppi', 'kansleri-sankyartesaanit' ),
+									'mediaType',
+									attrs,
+									props.setAttributes,
+									[
+										{ label: 'Kuva', value: 'image' },
+										{ label: 'YouTube-video', value: 'youtube' },
+									]
+							  ),
+						videoBackground
+							? null
+							: isYoutube
 							? youtubeField( attrs, props.setAttributes )
 							: imageField( __( 'Hero-kuva', 'kansleri-sankyartesaanit' ), attrs, props.setAttributes ),
-						selectField(
-							__( 'Median sijainti', 'kansleri-sankyartesaanit' ),
-							'imagePosition',
-							attrs,
-							props.setAttributes,
-							[
-								{ label: 'Oikealla', value: 'right' },
-								{ label: 'Vasemmalla', value: 'left' },
-							]
-						),
-						selectField(
-							__( 'Median pystysuunta', 'kansleri-sankyartesaanit' ),
-							'imageVerticalAlign',
-							attrs,
-							props.setAttributes,
-							[
-								{ label: 'Keskellä', value: 'center' },
-								{ label: 'Ylhäällä', value: 'top' },
-							]
-						)
+						videoBackground
+							? null
+							: selectField(
+									__( 'Median sijainti', 'kansleri-sankyartesaanit' ),
+									'imagePosition',
+									attrs,
+									props.setAttributes,
+									[
+										{ label: 'Oikealla', value: 'right' },
+										{ label: 'Vasemmalla', value: 'left' },
+									]
+							  ),
+						videoBackground
+							? null
+							: selectField(
+									__( 'Median pystysuunta', 'kansleri-sankyartesaanit' ),
+									'imageVerticalAlign',
+									attrs,
+									props.setAttributes,
+									[
+										{ label: 'Keskellä', value: 'center' },
+										{ label: 'Ylhäällä', value: 'top' },
+									]
+							  )
+
 					)
 				),
 				preview( 'sankyartesaanit/hero', attrs )
