@@ -2,10 +2,13 @@
 
 All notable changes to this project are documented here.
 
-## [1.2.0] - 2026-10-02
+## [1.2.0] - 2026-11-18
 
 ### Added
 
+- **Valinta-apuri block** ("Sänkyartesaanit - Valinta-apuri"): a real-time bed finder. The visitor answers four questions (bed type, sleep tracking, feel, materials) and the matching models appear at once. It also filters the page's model cards and comparison table, hides empty category bands and shows a "no match" hint. Models are defined as JSON in the block
+- **Interaktiivinen työkalu block** ("Sänkyartesaanit - Interaktiivinen työkalu"): an interactive element for articles, as a checklist, a slider (range) or a quick choice question, defined as JSON
+- **Hero block editor fields** "Bonuksen otsikko" and "Bonuskohdat", so the bonus title and list can be edited without code
 - **New default landing page**: a new Kampanja now starts from the Hypnosé Ultra page (video hero, sections with "Varaa henkilökohtainen palveluaika" + "Soita" buttons, certification logos and the booking calendar) instead of the old Factory Sale layout. The page is stored in `templates/landing-default.html`
 - Media in the template follows the site it is used on: images, the hero video and logos are looked up by file name in the media library and use that site's attachment IDs and uploads URL, so nothing breaks when the page moves between Local, staging and production. Files that are missing from a media library are hot-linked from sankyartesaanit.fi (filter `kansleri_sa_template_media_fallback_base`) instead of showing broken images
 - The Spectra logo strip is left out of the template automatically when Spectra is not active
@@ -20,6 +23,7 @@ All notable changes to this project are documented here.
 ### Fixed
 
 - "Reset blocks" and the automatic seeding of empty new campaigns stripped every backslash from the template markup (`wp_update_post()` expects slashed data), which corrupts block attributes that contain JSON escapes
+- Hero bonus list: empty or whitespace-only bonus items no longer render as empty bullets
 - Hero with a video background: the text was dark navy on the darkened picture in the block editor preview; it is now white, like on the live page
 
 ## [1.1.0] - 2026-10-02

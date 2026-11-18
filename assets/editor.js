@@ -844,6 +844,17 @@
 										.filter( Boolean ),
 								} );
 							},
+						} ),
+						textField( __( 'Bonuksen otsikko', 'kansleri-sankyartesaanit' ), 'bonusTitle', attrs, props.setAttributes ),
+						el( TextareaControl, {
+							label: __( 'Bonuskohdat', 'kansleri-sankyartesaanit' ),
+							help: __( 'Yksi rivi per kohta', 'kansleri-sankyartesaanit' ),
+							value: ( attrs.bonusItems || [] ).join( '\n' ),
+							rows: 5,
+							onChange: function ( text ) {
+								// Keep empty lines while typing; render.php skips empty items.
+								props.setAttributes( { bonusItems: text.split( '\n' ) } );
+							},
 						} )
 					),
 					el(
@@ -1423,6 +1434,115 @@
 					)
 				),
 				preview( 'sankyartesaanit/booking-embed', attrs )
+			);
+		},
+		save: function () {
+			return null;
+		},
+	} );
+
+	// JSON editor for structured attributes (products, tool config): applies only valid JSON.
+	function JsonField( props ) {
+		const initial = JSON.stringify( props.value || ( props.isArray ? [] : {} ), null, 2 );
+		const [ text, setText ] = useState( initial );
+		const [ error, setError ] = useState( '' );
+
+		return el( TextareaControl, {
+			label: props.label,
+			help: error || props.help || '',
+			value: text,
+			rows: props.rows || 14,
+			className: 'sa-json-field',
+			onChange: function ( value ) {
+				setText( value );
+				try {
+					const parsed = JSON.parse( value );
+					setError( '' );
+					const update = {};
+					update[ props.attribute ] = parsed;
+					props.setAttributes( update );
+				} catch ( e ) {
+					setError( __( 'JSON ei ole kelvollinen, muutosta ei ole vielä tallennettu.', 'kansleri-sankyartesaanit' ) );
+				}
+			},
+		} );
+	}
+
+	registerBlockType( 'sankyartesaanit/valinta-apuri', {
+		edit: function ( props ) {
+			const attrs = props.attributes;
+			return el(
+				Fragment,
+				null,
+				el(
+					InspectorControls,
+					null,
+					el(
+						PanelBody,
+						{ title: __( 'Valinta-apuri', 'kansleri-sankyartesaanit' ), initialOpen: true },
+						textField( __( 'Yläotsikko', 'kansleri-sankyartesaanit' ), 'eyebrow', attrs, props.setAttributes ),
+						textField( __( 'Otsikko', 'kansleri-sankyartesaanit' ), 'title', attrs, props.setAttributes ),
+						textareaField( __( 'Kuvaus', 'kansleri-sankyartesaanit' ), 'description', attrs, props.setAttributes, 2 ),
+						textField( __( 'Tulosten painike', 'kansleri-sankyartesaanit' ), 'resultsCtaText', attrs, props.setAttributes ),
+						textField( __( 'Painikkeen linkki', 'kansleri-sankyartesaanit' ), 'resultsCtaUrl', attrs, props.setAttributes ),
+						textField( __( 'Ankkuri', 'kansleri-sankyartesaanit' ), 'anchorId', attrs, props.setAttributes ),
+						selectField(
+							__( 'Teema', 'kansleri-sankyartesaanit' ),
+							'theme',
+							attrs,
+							props.setAttributes,
+							[
+								{ label: 'Lämmin', value: 'warm' },
+								{ label: 'Hiekka', value: 'sand' },
+								{ label: 'Kerma', value: 'cream' },
+								{ label: 'Vaalea', value: 'light' },
+							]
+						)
+					),
+					el(
+						PanelBody,
+						{ title: __( 'Mallit (JSON)', 'kansleri-sankyartesaanit' ), initialOpen: false },
+						el( JsonField, {
+							label: __( 'Mallit', 'kansleri-sankyartesaanit' ),
+							attribute: 'products',
+							value: attrs.products,
+							isArray: true,
+							setAttributes: props.setAttributes,
+							help: __( 'Jokainen malli: name, slug, url, type (jenkki / moottori / patja), series, ultra (true / false), sensowell (yes / option / no), natural (yes / part / no), feels (soft, medium, hard, fx, xhard), springs, imageId.', 'kansleri-sankyartesaanit' ),
+						} )
+					)
+				),
+				preview( 'sankyartesaanit/valinta-apuri', attrs )
+			);
+		},
+		save: function () {
+			return null;
+		},
+	} );
+
+	registerBlockType( 'sankyartesaanit/tyokalu', {
+		edit: function ( props ) {
+			const attrs = props.attributes;
+			return el(
+				Fragment,
+				null,
+				el(
+					InspectorControls,
+					null,
+					el(
+						PanelBody,
+						{ title: __( 'Työkalun sisältö (JSON)', 'kansleri-sankyartesaanit' ), initialOpen: true },
+						el( JsonField, {
+							label: __( 'Asetukset', 'kansleri-sankyartesaanit' ),
+							attribute: 'tool',
+							value: attrs.tool,
+							setAttributes: props.setAttributes,
+							rows: 22,
+							help: __( 'type: checklist (items + results[min]), range (min, max, step, value, unit + results[max]) tai choice (questions[options[label, score]] + outcomes). Lisäksi eyebrow, title, intro ja note.', 'kansleri-sankyartesaanit' ),
+						} )
+					)
+				),
+				preview( 'sankyartesaanit/tyokalu', attrs )
 			);
 		},
 		save: function () {

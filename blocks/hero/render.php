@@ -105,7 +105,7 @@ $has_bonus   = ! empty( $attributes['bonusTitle'] ) || ! empty( $bonus_items );
 					<?php if ( ! empty( $bonus_items ) ) : ?>
 						<ul class="sa-hero__bonus-list">
 							<?php foreach ( $bonus_items as $bonus_item ) : ?>
-								<?php if ( $bonus_item ) : ?>
+								<?php if ( is_string( $bonus_item ) && '' !== trim( $bonus_item ) ) : ?>
 									<li><?php kansleri_sa_esc_text( $bonus_item ); ?></li>
 								<?php endif; ?>
 							<?php endforeach; ?>

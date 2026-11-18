@@ -21,6 +21,8 @@ class Kansleri_Sankyartesaanit_Blocks {
 		'faq',
 		'cta-section',
 		'booking-embed',
+		'valinta-apuri',
+		'tyokalu',
 	);
 
 	/**
@@ -157,6 +159,22 @@ class Kansleri_Sankyartesaanit_Blocks {
 		wp_register_script(
 			'kansleri-sa-hero-video',
 			KANSLERI_SA_PLUGIN_URL . 'assets/hero-video.js',
+			array(),
+			KANSLERI_SA_VERSION,
+			true
+		);
+
+		wp_register_script(
+			'kansleri-sa-valinta-apuri',
+			KANSLERI_SA_PLUGIN_URL . 'assets/valinta-apuri.js',
+			array(),
+			KANSLERI_SA_VERSION,
+			true
+		);
+
+		wp_register_script(
+			'kansleri-sa-tyokalu',
+			KANSLERI_SA_PLUGIN_URL . 'assets/tyokalu.js',
 			array(),
 			KANSLERI_SA_VERSION,
 			true

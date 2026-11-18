@@ -29,6 +29,9 @@ WordPress plugin for Sänkyartesaanit campaign landing pages. Create a Kampanja 
 == Changelog ==
 
 = 1.2.0 =
+* New block: Valinta-apuri, a real-time bed finder that also filters the page's model cards and comparison table
+* New block: Interaktiivinen työkalu (checklist, slider or quick choice) for articles
+* Hero block: editor fields for the bonus title and bonus list; empty bonus items no longer render
 * New default landing page for new campaigns (Hypnosé Ultra layout with video hero, CTA rows, logos and booking calendar); the old Factory Sale layout stays available as a block pattern
 * Template media is resolved per site (attachment IDs and uploads URL), with a hot-link fallback so images are never broken
 * WP-CLI: wp kansleri-sa export-template <post_id> saves a page as the default template

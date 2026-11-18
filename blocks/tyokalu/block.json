@@ -1,0 +1,23 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/tyokalu",
+	"title": "Sänkyartesaanit - Interaktiivinen työkalu",
+	"category": "sankyartesaanit",
+	"icon": "lightbulb",
+	"description": "Artikkeliin upotettava työkalu, joka havainnollistaa artikkelin pointin: tarkistuslista (checklist), liukusäädin (range) tai pikakysely (choice). Sisältö määritetään JSON-muodossa.",
+	"keywords": ["työkalu", "testi", "kysely", "laskuri", "tarkistuslista", "unipedia"],
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"tool": { "type": "object", "default": {} }
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide"],
+		"customClassName": true,
+		"multiple": true
+	},
+	"style": ["kansleri-sa-frontend"],
+	"viewScript": "kansleri-sa-tyokalu",
+	"editorScript": "kansleri-sa-editor"
+}

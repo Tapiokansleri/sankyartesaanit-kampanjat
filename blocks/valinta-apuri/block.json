@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "sankyartesaanit/valinta-apuri",
+	"title": "Sänkyartesaanit - Valinta-apuri",
+	"category": "sankyartesaanit",
+	"icon": "filter",
+	"description": "Reaaliaikainen valinta-apuri: kävijä valitsee sänkytyypin, unenseurannan, tuntuman ja materiaalitoiveet, ja apuri näyttää heti sopivat mallit. Suodattaa samalla sivun mallikortit ja vertailutaulukon.",
+	"keywords": ["valinta", "apuri", "suodatin", "vertailu", "sänky"],
+	"textdomain": "kansleri-sankyartesaanit",
+	"attributes": {
+		"anchorId": { "type": "string", "default": "valinta-apuri" },
+		"eyebrow": { "type": "string", "default": "Valinta-apuri" },
+		"title": { "type": "string", "default": "Löydä sinulle sopivat sängyt" },
+		"description": { "type": "string", "default": "Vastaa neljään kysymykseen, niin näet heti, mitkä mallit sopivat sinulle." },
+		"resultsCtaText": { "type": "string", "default": "Varaa aika kokeilemaan" },
+		"resultsCtaUrl": { "type": "string", "default": "#varaa-aika" },
+		"products": { "type": "array", "default": [] },
+		"theme": { "type": "string", "default": "warm" }
+	},
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"],
+		"customClassName": false,
+		"multiple": false
+	},
+	"style": ["kansleri-sa-frontend"],
+	"viewScript": "kansleri-sa-valinta-apuri",
+	"editorScript": "kansleri-sa-editor"
+}
