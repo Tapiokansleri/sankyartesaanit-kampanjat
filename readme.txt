@@ -4,7 +4,7 @@ Tags: gutenberg, blocks, landing-page, kampanja
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,9 @@ WordPress plugin for Sänkyartesaanit campaign landing pages. Create a Kampanja 
 3. Go to **Kampanjat → Lisää uusi** to create a campaign page.
 
 == Changelog ==
+
+= 1.2.1 =
+* Valinta-apuri: the two overlapping material choices are now one, "Haluan hengittävät ja allergiavapaat luonnonmateriaalit"
 
 = 1.2.0 =
 * New block: Valinta-apuri, a real-time bed finder that also filters the page's model cards and comparison table

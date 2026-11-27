@@ -50,8 +50,7 @@ $questions = array(
 		'legend'  => __( 'Minkälaiset materiaalit haluat sänkyysi?', 'kansleri-sankyartesaanit' ),
 		'options' => array(
 			'any'     => __( 'Ei väliä', 'kansleri-sankyartesaanit' ),
-			'allergy' => __( 'Haluan allergiavapaan sängyn', 'kansleri-sankyartesaanit' ),
-			'breathe' => __( 'Haluan hengittävät luonnonmateriaalit', 'kansleri-sankyartesaanit' ),
+			'natural' => __( 'Haluan hengittävät ja allergiavapaat luonnonmateriaalit', 'kansleri-sankyartesaanit' ),
 		),
 	),
 );

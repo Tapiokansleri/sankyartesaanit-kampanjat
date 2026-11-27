@@ -64,10 +64,7 @@
 			if ( s.feel === 'xhard' && feels.indexOf( 'xhard' ) === -1 ) {
 				return false;
 			}
-			if ( s.material === 'allergy' && d.natural !== 'yes' ) {
-				return false;
-			}
-			if ( s.material === 'breathe' && d.natural === 'no' ) {
+			if ( s.material === 'natural' && d.natural !== 'yes' ) {
 				return false;
 			}
 			return true;

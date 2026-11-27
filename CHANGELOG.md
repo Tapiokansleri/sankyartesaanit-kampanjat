@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here.
 
+## [1.2.1] - 2026-11-27
+
+### Changed
+
+- **Valinta-apuri:** the two material choices "allergy free" and "breathable natural materials" described the same thing, so they are now one choice, "Haluan hengittävät ja allergiavapaat luonnonmateriaalit". It shows only models whose materials are marked fully natural (`natural: "yes"`)
+
 ## [1.2.0] - 2026-11-18
 
 ### Added
